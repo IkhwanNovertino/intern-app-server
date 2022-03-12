@@ -1,8 +1,18 @@
 body {
-  padding: 50px;
+  /* padding: 0px; */
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.select2-container .select2-selection--single {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 36px;
+  font-size: 14px;
+  user-select: none;
+  -webkit-user-select: none;
 }
