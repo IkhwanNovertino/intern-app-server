@@ -1,7 +1,7 @@
 module.exports = {
   index: async (req, res) => {
     try {
-      res.render('view_peserta', { title: "Ikhwan" })
+      res.render('index')
     } catch (err) {
       console.log(err);
     }
