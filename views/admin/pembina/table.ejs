@@ -1,0 +1,33 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>No.</th>
+    <th>Nama Lengkap</th>
+    <th>No. Induk Pegawai</th>
+    <th>Jabatan</th>
+    <th>Aksi</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% pembina.forEach((e, i) => { i++ %>
+      <tr>
+        <td><%= i %></td>
+        <td><%= e.name %></td>
+        <td><%= e.nip %></td>
+        <td><%= e.jabatan %></td>
+        <td>
+          <form action="/pembina/delete/<%= e.id %>?_method=DELETE" method="post">
+            <a href="/pembina/edit/<%= e.id %>" class="btn btn-warning btn-sm">
+              <i class="fas fa-pencil-alt"></i>
+              Ubah
+            </a>
+            <button class="btn  btn-danger btn-sm">
+              <i class="fas fa-trash-alt"></i>
+              Hapus
+            </button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

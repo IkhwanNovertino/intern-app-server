@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 
 var dashboardRouter = require('./app/dashboard/router');
 var biroRouter = require('./app/biro/router');
+var pembinaRouter = require('./app/pembina/router');
 var pesertaRouter = require('./app/peserta/router');
 
 var app = express();
@@ -25,6 +26,7 @@ app.use('/adminlte', express.static(path.join(__dirname, '/node_modules/admin-lt
 
 app.use('/', dashboardRouter);
 app.use('/biro', biroRouter);
+app.use('/pembina', pembinaRouter);
 app.use('/peserta', pesertaRouter);
 
 // catch 404 and forward to error handler
