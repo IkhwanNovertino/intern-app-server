@@ -48,6 +48,11 @@
 <script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- Select2 -->
 <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="/adminlte/plugins/moment/moment.min.js"></script>
+<script src="/adminlte/plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Page specific script-->
 <script>
   $(function () {
@@ -70,6 +75,17 @@
     $('.select2bs4').select2({
       theme: 'bootstrap4'
     });
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Date picker
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+    $('#reservationdate1').datetimepicker({
+        format: 'L'
+    });
+    // Date and time picker
+    $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
   });
 </script>
 </body>
