@@ -35,6 +35,10 @@ let pesertaSchema = mongoose.Schema({
   biro: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Biro'
+  },
+  pembina: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Pembina'
   }
 
 }, { timestamps: true })

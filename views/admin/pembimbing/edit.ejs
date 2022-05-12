@@ -54,21 +54,6 @@
                     <input type="text" name="jabatan" class=" form-control" id="jabatan"
                       placeholder="Masukkan jabatan..." value="<%= pembimbing.jabatan %>" required>
                   </div>
-                  <div class="form-group">
-                    <label for="biro">Bidang Kegiatan :</label>
-                    <select class="form-control select2" style="width: 100%;" name="biro" id="biro">
-                      <option selected="selected">Pilih bidang Kegiatan</option>
-                      <% biro.forEach(e => { %>
-                        <option value="<%= e._id %>"
-                          <% if (pembimbing.biro._id.toString() === e._id.toString()) { %>
-                            selected
-                          <% } %>
-                        >
-                          <%= e.name %>
-                        </option>
-                      <% }) %>
-                    </select>
-                  </div>
                 </div>
 
                 <div class="card-footer">

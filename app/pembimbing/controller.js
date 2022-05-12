@@ -1,11 +1,10 @@
 const Pembimbing = require('./model');
-const Biro = require('../biro/model');
 
 module.exports = {
   index: async (req, res) => {
     try {
-      const pembimbing = await Pembimbing.find()
-        .populate('biro');
+      const pembimbing = await Pembimbing.find();
+
       res.render('admin/pembimbing/view_pembimbing', {
         pembimbing
       })
@@ -15,10 +14,8 @@ module.exports = {
     }
   },
   viewCreate: async (req, res) => {
-    const biro = await Biro.find();
     try {
       res.render('admin/pembimbing/create', {
-        biro,
       });
     } catch (err) {
       console.log(err);
@@ -27,9 +24,9 @@ module.exports = {
   },
   actionCreate: async (req, res) => {
     try {
-      const { name, nip, jabatan, biro } = req.body;
+      const { name, nip, jabatan } = req.body;
 
-      let pembimbing = await Pembimbing({ name, nip, jabatan, biro })
+      let pembimbing = await Pembimbing({ name, nip, jabatan })
       await pembimbing.save();
 
       res.redirect('/pembimbing');
@@ -42,10 +39,8 @@ module.exports = {
     try {
       const { id } = req.params;
       const pembimbing = await Pembimbing.findById(id)
-      const biro = await Biro.find();
       res.render('admin/pembimbing/edit', {
         pembimbing,
-        biro
       });
     } catch (err) {
       console.log(err);
@@ -55,9 +50,9 @@ module.exports = {
   actionEdit: async (req, res) => {
     try {
       const { id } = req.params;
-      const { name, nip, jabatan, biro } = req.body;
+      const { name, nip, jabatan } = req.body;
 
-      await Pembimbing.findOneAndUpdate({ _id: id }, { name, nip, jabatan, biro })
+      await Pembimbing.findOneAndUpdate({ _id: id }, { name, nip, jabatan })
 
       res.redirect('/pembimbing');
     } catch (err) {

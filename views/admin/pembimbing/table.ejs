@@ -4,8 +4,7 @@
     <th>No.</th>
     <th>Nama Lengkap</th>
     <th>No. Induk Pegawai</th>
-    <th style="width: 14vw;">Jabatan</th>
-    <th>Bidang Kegiatan</th>
+    <th>Jabatan</th>
     <th>Aksi</th>
   </tr>
   </thead>
@@ -16,7 +15,6 @@
         <td><%= e.name %></td>
         <td><%= e.nip %></td>
         <td class="text-break"><%= e.jabatan %></td>
-        <td><%= e?.biro?.name || '-' %></td>
         <td>
           <form action="/pembimbing/delete/<%= e.id %>?_method=DELETE" method="post">
             <a href="/pembimbing/edit/<%= e.id %>" class="btn btn-warning btn-sm">
@@ -33,3 +31,4 @@
     <% }) %>
   </tbody>
 </table>
+<!-- style="width: 14vw; -->

@@ -13,10 +13,6 @@ let pembimbingSchema = mongoose.Schema({
     type: String,
     require: [true, 'jabatan harus diisi']
   },
-  biro: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Biro'
-  },
 }, { timestamps: true })
 
 module.exports = mongoose.model('Pembimbing', pembimbingSchema);

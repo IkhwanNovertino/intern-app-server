@@ -92,6 +92,21 @@
                   </div>
                   <hr>
                   <div class="form-group">
+                    <label for="pembimbing">Pembina :</label>
+                    <select class="form-control select2" style="width: 100%;" name="pembina" id="pembina">
+                      <option selected="selected">Pilih Pembina</option>
+                      <% pembina.forEach(e => { %>
+                        <option value="<%= e._id %>"
+                          <% if (peserta.pembina._id.toString() === e._id.toString()) { %>
+                            selected
+                          <% } %>
+                        >
+                          <%= e.name %>
+                        </option>
+                        <% }) %>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label for="pembimbing">Pembimbing :</label>
                     <select class="form-control select2" style="width: 100%;" name="pembimbing" id="pembimbing">
                       <option selected="selected">Pilih Pembimbing</option>
