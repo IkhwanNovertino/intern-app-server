@@ -1,0 +1,41 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+  <tr class="col">
+    <th>No.</th>
+    <th>Nama Lengkap</th>
+    <th>NIS/NIM</th>
+    <th>Asal Sekolah/Kampus</th>
+    <th>Bidang Kegiatan</th>
+    <th>Aksi</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% sertifikat.forEach((sertifikat, i) => { i++ %>
+      <tr class="col">
+        <td><%= i %></td>
+        <td><%= sertifikat.peserta.name %></td>
+        <td><%= sertifikat.peserta.nim %></td>
+        <td><%= sertifikat.peserta.instansi %></td>
+        <td><%= sertifikat.peserta.biro.name%></td>
+        <td>
+          <% if (sertifikat.status === 'Y') { %>
+            <a href="/sertifikat/print/<%= sertifikat.id %>" class="btn  btn-success btn-sm">
+              Cetak Sertifikat
+            </a>
+            <a href="/sertifikat/read/<%= sertifikat.id %>" class="btn  btn-default btn-sm">
+              Tampilkan Data
+            </a>
+          <% } else { %>
+            <a href="/sertifikat/create/<%= sertifikat.id %>" class="btn  btn-primary btn-sm">
+              Buat Sertifikat
+            </a>
+            <a href="/sertifikat/read/<%= sertifikat.id %>" class="btn  btn-default btn-sm disabled">
+              Tampilkan Data
+            </a>
+          <% } %>
+          
+        </td>
+      </tr>
+    <% }) %> 
+  </tbody>
+</table>

@@ -1,0 +1,173 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Sertifikat</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/sertifikat">Sertifikat</a></li>
+            <li class="breadcrumb-item active">Buat Sertifikat</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="callout callout-warning">
+              <h5><i class="fas fa-info"></i> Note:</h5>
+              Periksa Data Peserta Magang. Jika terdapat kesalahan, silakan ubah di bagian "Peserta Magang".
+            </div>
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Buat Sertifikat Peserta</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form action="/sertifikat/create/<%= sertifikat.id %>?status=Y" method="post">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="noSertifikat">Nomor Sertifikat :</label>
+                    <input type="text" name="noSertifikat" class=" form-control" id="noSertifikat" 
+                      placeholder="Masukkan nama peserta..." value="13/<%=noSertif(sertifikat.peserta.noPeserta)%>/SRT/INFO/KOMINFO" disabled="disabled" required>
+                      <input type="text" name="noSertifikat" class=" form-control" id="noSertifikat" 
+                      placeholder="Masukkan nama peserta..." value="13/<%=noSertif(sertifikat.peserta.noPeserta)%>/SRT/INFO/KOMINFO" hidden required>
+                  </div>
+                  <hr>
+                  <div class="form-group">
+                    <label for="name">Nama peserta :</label>
+                    <input type="text" name="name" class=" form-control" id="name"
+                      placeholder="Masukkan nama peserta..." value="<%= sertifikat.peserta.name %>" disabled required>
+                  </div>
+                  <div class="form-group">
+                    <label for="nim">No. Induk Siswa/Mahasiswa :</label>
+                    <input type="text" name="nim" class=" form-control" id="nim"
+                      placeholder="Masukkan no. Induk Siswa/Mahasiswa..." value="<%= sertifikat.peserta.nim %>" disabled required>
+                    <!-- <div id="nimHelp" class="form-text text-secondary">contoh: 20001101 202103 1 024.</div> -->
+                  </div>
+                  <div class="form-group">
+                    <label for="instansi">Instansi/ Asal Sekolah :</label>
+                    <input type="text" name="instansi" class=" form-control" id="instansi"
+                      placeholder="Masukkan instansi..." value="<%= sertifikat.peserta.instansi %>" disabled required>
+                  </div>
+                  <div class="form-group">
+                    <label for="jurusan">Jurusan :</label>
+                    <input type="text" name="jurusan" class=" form-control" id="jurusan"
+                      placeholder="Masukkan jurusan..." value="<%= sertifikat.peserta.jurusan %>" disabled required>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">E-mail :</label>
+                    <input type="email" name="email" class=" form-control" id="email"
+                      placeholder="Masukkan email..." value="<%= sertifikat.peserta.email %>" disabled required>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label>Tanggal Mulai :</label>
+                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                              <input type="text" name="tglmulai" id="tglmulai" class="form-control datetimepicker-input" 
+                                data-target="#reservationdate" value="<%= tglFormatForm(sertifikat.peserta.tglmulai) %>" disabled required/>
+                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label>Tanggal Selesai :</label>
+                          <div class="input-group date" id="reservationdate1" data-target-input="nearest">
+                              <input type="text" name="tglselesai" id="tglselesai" class="form-control datetimepicker-input" 
+                                data-target="#reservationdate" value="<%= tglFormatForm(sertifikat.peserta.tglselesai) %>" disabled required/>
+                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="form-group">
+                    <label for="pembimbing">Pembimbing :</label>
+                    <select class="form-control select2" style="width: 100%;" name="pembimbing" id="pembimbing" disabled>
+                      <option selected="selected">Pilih Pembimbing</option>
+                      <option value="<%= sertifikat.peserta.pembimbing.id %>" selected><%= sertifikat.peserta.pembimbing.name %></option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="biro">Bidang Kegiatan :</label>
+                    <select class="form-control select2" style="width: 100%;" name="biro" id="biro" disabled>
+                      <option selected="selected">Pilih Bidang Kegiatan</option>
+                      <option value="<%= sertifikat.peserta.biro.id %>" selected><%= sertifikat.peserta.biro.name %></option>
+                    </select>
+                  </div>
+                  <hr>
+                  <div class="form-group">
+                    <label for="pembina">Pembina :</label>
+                    <select class="form-control select2" style="width: 100%;" name="pembina" id="pembina">
+                      <option selected="selected">Pilih Pembina</option>
+                      <% pembina.forEach(e => { %>
+                        <option value="<%= e._id %>"><%= e.name %></option>
+                        <% }) %>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="nilai">Nilai Magang :</label>
+                    <select class="form-control select2" style="width: 100%;" name="nilai" id="nilai">
+                      <option value="a">Sangat Baik</option>
+                      <option value="b" selected="selected">Baik</option>
+                      <option value="c">Kurang Baik</option>
+                      <option value="d">Tidak Baik</option>
+                    </select>
+                    <div id="nilaiHelp" class="form-text text-warning">* Berikan penilaian dari kinerja magang peserta</div>
+                  </div>
+
+                  <div class="form-group">
+                    <!-- <label>Tanggal Terbit sertifikat :</label> -->
+                      <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                            <input type="text" name="tglTerbit" id="tglTerbit" class="form-control datetimepicker-input" 
+                              data-target="#reservationdate2" value="<%= tglFormatForm(Date.now()) %>" hidden required/>
+                            <!-- <div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div> -->
+                      </div>
+                  </div>
+                </div>
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary"> Simpan </button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>

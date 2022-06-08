@@ -1,6 +1,7 @@
 <table id="example1" class="table table-bordered table-striped">
   <thead>
   <tr class="col">
+    <th>No.</th>
     <th>Nama Lengkap</th>
     <th>NIS/NIM</th>
     <th>Asal Sekolah/Kampus</th>
@@ -11,8 +12,9 @@
   </tr>
   </thead>
   <tbody>
-    <% peserta.forEach(e => { %>
+    <% peserta.forEach((e, i) => {i++ %>
       <tr class="col">
+        <td><%= i %></td>
         <td><%= e.name %></td>
         <td><%= e.nim %></td>
         <td><%= e.instansi %></td>

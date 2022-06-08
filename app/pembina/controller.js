@@ -24,7 +24,11 @@ module.exports = {
     try {
       const { name, nip, jabatan } = req.body;
 
-      let pembina = await Pembina({ name, nip, jabatan })
+      let pembina = await Pembina({
+        name: name.trim().toUpperCase(),
+        nip: nip.replaceAll(' ', ''),
+        jabatan: jabatan.trim().toUpperCase()
+      })
       await pembina.save();
 
       res.redirect('/pembina');
@@ -50,7 +54,13 @@ module.exports = {
       const { id } = req.params;
       const { name, nip, jabatan } = req.body;
 
-      await Pembina.findOneAndUpdate({ _id: id }, { name, nip, jabatan })
+      await Pembina.findOneAndUpdate(
+        { _id: id },
+        {
+          name: name.trim().toUpperCase(),
+          nip: nip.replaceAll(' ', ''),
+          jabatan: jabatan.trim().toUpperCase()
+        })
 
       res.redirect('/pembina');
     } catch (err) {

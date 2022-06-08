@@ -10,6 +10,7 @@ var biroRouter = require('./app/biro/router');
 var pembinaRouter = require('./app/pembina/router');
 var pembimbingRouter = require('./app/pembimbing/router');
 var pesertaRouter = require('./app/peserta/router');
+var sertifikatRouter = require('./app/sertifikat/router');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use('/biro', biroRouter);
 app.use('/pembina', pembinaRouter);
 app.use('/pembimbing', pembimbingRouter);
 app.use('/peserta', pesertaRouter);
+app.use('/sertifikat', sertifikatRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

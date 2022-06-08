@@ -23,7 +23,7 @@ module.exports = {
     try {
       const { name } = req.body;
 
-      let biro = await Biro({ name })
+      let biro = await Biro({ name: name.trim().toUpperCase() })
       await biro.save();
 
       console.log("Biro >>");
@@ -51,7 +51,7 @@ module.exports = {
       const { id } = req.params;
       const { name } = req.body;
 
-      await Biro.findOneAndUpdate({ _id: id }, { name })
+      await Biro.findOneAndUpdate({ _id: id }, { name: name.trim().toUpperCase() })
 
       res.redirect('/biro');
     } catch (err) {

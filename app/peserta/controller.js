@@ -1,23 +1,26 @@
 const moment = require('moment');
 const Biro = require('../biro/model');
-const Pembina = require('../pembina/model');
 const Pembimbing = require('../pembimbing/model');
+const Sertifikat = require('../sertifikat/model');
 const Peserta = require('./model');
+const { tglFormat, tglFormatForm } = require('../../utils/utils');
 
 module.exports = {
   index: async (req, res) => {
     try {
       const peserta = await Peserta.find()
+        .sort({ createdAt: -1 })
         .populate('biro');
 
-      let tglFormat = (value) => {
-        let tgl = moment(value).format("D MMM YYYY");
-        return tgl
-      }
+      // let tglFormat = (value) => {
+      //   let tgl = moment(value).format("D MMM YYYY");
+      //   return tgl
+      // }
 
       res.render('admin/peserta/view_peserta', {
         peserta,
-        tglFormat,
+        tglFormat
+        
       })
     } catch (err) {
       console.log(err);
@@ -27,12 +30,10 @@ module.exports = {
     try {
       const biro = await Biro.find();
       const pembimbing = await Pembimbing.find();
-      const pembina = await Pembina.find();
 
       res.render('admin/peserta/create', {
         biro,
         pembimbing,
-        pembina
       })
     } catch (err) {
       console.log(err);
@@ -41,11 +42,23 @@ module.exports = {
   },
   actionCreate: async (req, res) => {
     try {
-      const { name, nim, instansi, jurusan, email, tglmulai, tglselesai,pembina, pembimbing, biro } = req.body;
+      const { name, nim, instansi, jurusan, email, tglmulai, tglselesai, pembimbing, biro } = req.body;
 
-      let peserta = await Peserta({ name, nim, instansi, jurusan, email, tglmulai, tglselesai, pembina, pembimbing, biro })
+      let peserta = await Peserta({
+        name : name.trim().toUpperCase(),
+        nim : nim.trim(),
+        instansi: instansi.trim().toUpperCase(),
+        jurusan: jurusan.trim().toUpperCase(),
+        email,
+        tglmulai,
+        tglselesai,
+        pembimbing,
+        biro
+      })
+      const pesertaId = peserta._id;
       await peserta.save();
-
+      await Sertifikat({ peserta: pesertaId }).save();
+      // res.send(req.body)
       res.redirect('/peserta');
     } catch (err) {
       console.log(err);
@@ -57,20 +70,18 @@ module.exports = {
       const { id } = req.params;
       const peserta = await Peserta.findById(id)
       const biro = await Biro.find();
-      const pembina = await Pembina.find();
       const pembimbing = await Pembimbing.find();
 
-      let tglFormat = (value) => {
-        let tgl = moment(value).format("L");
-        return tgl
-      }
+      // let tglFormat = (value) => {
+      //   let tgl = moment(value).format("L");
+      //   return tgl
+      // }
 
       res.render('admin/peserta/edit', {
-        pembina,
         pembimbing,
         biro,
         peserta,
-        tglFormat
+        tglFormatForm,
       });
     } catch (err) {
       console.log(err);
@@ -81,14 +92,18 @@ module.exports = {
     try {
       const { id } = req.params;
       const { name, nim, instansi, jurusan, email,
-        tglmulai, tglselesai, pembina, pembimbing, biro } = req.body;
+        tglmulai, tglselesai, pembimbing, biro } = req.body;
 
       // res.send(req.body)
       await Peserta.findOneAndUpdate(
         { _id: id },
         {
-          name, nim, instansi, jurusan, email,
-          tglmulai, tglselesai, pembina, pembimbing, biro
+          name : name.trim().toUpperCase(),
+          nim : nim.trim(),
+          instansi: instansi.trim().toUpperCase(),
+          jurusan: jurusan.trim().toUpperCase(),
+          email,
+          tglmulai, tglselesai, pembimbing, biro
         })
 
       res.redirect('/peserta');

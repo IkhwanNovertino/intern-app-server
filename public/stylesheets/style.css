@@ -16,3 +16,56 @@ a {
   user-select: none;
   -webkit-user-select: none;
 }
+
+.invoice {
+  background-image: url(/img/background-sertif.png);
+  background-size: 80rem 56.588rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  font: 400 16px Arvo, serif;
+}
+
+.invoice .sertificate-title .sertificate-title-text {
+  font-size: 23px;
+}
+.invoice .sertificate-title .sertificate-title-text #pemko {
+  font: 200 21px Arimo, sans-serif;
+}
+.invoice .sertificate-number {
+  margin-top: 26px;
+  margin-bottom: 20px;
+}
+.invoice .sertificate-number .sertificate-number-title {
+  color: #1E686F;
+  font: 100 52px/14px "League Gothic", sans-serif;
+  letter-spacing: 1.2px;
+}
+.invoice .sertificate-name {
+  font-size: 23px;
+}
+.invoice .sertificate-name #name {
+  color: #1E686F;
+  font: 100 82px "League Gothic", sans-serif;
+  letter-spacing: 1.5px;
+}
+.invoice .sertificate-paragraph {
+  line-height: 21px;
+  margin-bottom: 60px;
+}
+.invoice .sertificate-signature {
+  color: #1E686F;
+  line-height: 15px;
+}
+.invoice .sertificate-signature .signature-date {
+  margin-bottom: 52px;
+  font-size: 13px;
+  font-weight: bold;
+}
+.invoice .sertificate-signature .signature-person {
+  font-size: 13px;
+  font-weight: bold;
+}
+.invoice .sertificate-signature .signature-person span {
+  font-size: 14px;
+  font-weight: bold;
+}

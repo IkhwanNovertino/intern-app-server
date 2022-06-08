@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
+const autoInc = require('mongoose-sequence')(mongoose)
 
 let pesertaSchema = mongoose.Schema({
   name: {
     type: String,
     require: [true, 'nama harus diisi']
+  },
+  noPeserta: {
+    type: Number,
+    default:0
   },
   nim: {
     type: String,
@@ -35,12 +40,9 @@ let pesertaSchema = mongoose.Schema({
   biro: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Biro'
-  },
-  pembina: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Pembina'
   }
-
 }, { timestamps: true })
+
+pesertaSchema.plugin(autoInc, { id: 'peserta_seq', inc_field: 'noPeserta', reference_fields: ['tglmulai'] })
 
 module.exports = mongoose.model('Peserta', pesertaSchema);
