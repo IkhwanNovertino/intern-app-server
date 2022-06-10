@@ -8,23 +8,24 @@ const { tglFormat, tglFormatForm } = require('../../utils/utils');
 module.exports = {
   index: async (req, res) => {
     try {
+      const alertMessage = req.flash('alertMessage');
+      const alertStatus = req.flash('alertStatus');
+      const alert = { message: alertMessage, status: alertStatus };
+
       const peserta = await Peserta.find()
         .sort({ createdAt: -1 })
         .populate('biro');
-
-      // let tglFormat = (value) => {
-      //   let tgl = moment(value).format("D MMM YYYY");
-      //   return tgl
-      // }
-
+      
       res.render('admin/peserta/view_peserta', {
         title: 'Halaman Peserta Magang',
         peserta,
-        tglFormat
-        
+        tglFormat,
+        alert
       })
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/peserta')
     }
   },
   viewCreate: async (req, res) => {
@@ -37,8 +38,9 @@ module.exports = {
         biro,
         pembimbing,
       })
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/peserta');
     }
   },
@@ -59,11 +61,15 @@ module.exports = {
       })
       const pesertaId = peserta._id;
       await peserta.save();
+
       await Sertifikat({ peserta: pesertaId }).save();
-      // res.send(req.body)
+
+      req.flash('alertMessage', 'Berhasil Menambahkan Data Peserta');
+      req.flash('alertStatus', 'success');
       res.redirect('/peserta');
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/peserta')
     }
   },
@@ -74,11 +80,6 @@ module.exports = {
       const biro = await Biro.find();
       const pembimbing = await Pembimbing.find();
 
-      // let tglFormat = (value) => {
-      //   let tgl = moment(value).format("L");
-      //   return tgl
-      // }
-
       res.render('admin/peserta/edit', {
         title: 'Halaman Ubah Peserta Magang',
         pembimbing,
@@ -86,8 +87,9 @@ module.exports = {
         peserta,
         tglFormatForm,
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/peserta')
     }
   },
@@ -97,7 +99,6 @@ module.exports = {
       const { name, nim, instansi, jurusan, email,
         tglmulai, tglselesai, pembimbing, biro } = req.body;
 
-      // res.send(req.body)
       await Peserta.findOneAndUpdate(
         { _id: id },
         {
@@ -109,9 +110,12 @@ module.exports = {
           tglmulai, tglselesai, pembimbing, biro
         })
 
+        req.flash('alertMessage', 'Berhasil Mengubah Data Peserta');
+        req.flash('alertStatus', 'success');
       res.redirect('/peserta');
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/peserta')
     }
   },
@@ -119,10 +123,14 @@ module.exports = {
     try {
       const { id } = req.params;
       await Peserta.deleteOne({ _id: id });
+      await Sertifikat.deleteOne({ peserta: id });
 
+      req.flash('alertMessage', 'Berhasil Menghapus Data Peserta');
+      req.flash('alertStatus', 'success');
       res.redirect('/peserta')
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/peserta')
     }
   }

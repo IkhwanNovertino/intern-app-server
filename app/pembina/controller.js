@@ -3,13 +3,19 @@ const Pembina = require('./model');
 module.exports = {
   index: async (req, res) => {
     try {
+      const alertMessage = req.flash('alertMessage');
+      const alertStatus = req.flash('alertStatus');
+      const alert = { message: alertMessage, status: alertStatus };
+
       const pembina = await Pembina.find();
       res.render('admin/pembina/view_pembina', {
         title: 'Halaman Pembina',
-        pembina
+        pembina,
+        alert
       })
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembina')
     }
   },
@@ -18,8 +24,9 @@ module.exports = {
       res.render('admin/pembina/create', {
         title: 'Halaman Tambah Pembina',
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembina')
     }
   },
@@ -34,9 +41,12 @@ module.exports = {
       })
       await pembina.save();
 
+      req.flash('alertMessage', 'Berhasil Menambah Data Pembina');
+      req.flash('alertStatus', 'success');
       res.redirect('/pembina');
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembina')
     }
   },
@@ -48,8 +58,9 @@ module.exports = {
         title: 'Halaman Ubah Pembina',
         pembina
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembina')
     }
   },
@@ -66,9 +77,12 @@ module.exports = {
           jabatan: jabatan.trim().toUpperCase()
         })
 
+        req.flash('alertMessage', 'Berhasil Mengubah Data Pembina');
+        req.flash('alertStatus', 'success');
       res.redirect('/pembina');
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembina')
     }
   },
@@ -77,9 +91,12 @@ module.exports = {
       const { id } = req.params;
       await Pembina.deleteOne({ _id: id });
 
+      req.flash('alertMessage', 'Berhasil Menghapus Data Pembina');
+      req.flash('alertStatus', 'success');
       res.redirect('/pembina')
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembina')
     }
   }

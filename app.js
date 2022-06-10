@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const methodOverride = require('method-override');
+const session = require('express-session')
+const flash = require('connect-flash');
 
 const dashboardRouter = require('./app/dashboard/router');
 const biroRouter = require('./app/biro/router');
@@ -17,6 +19,15 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+//konfig express-session dan flash
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
+app.use(flash());
 
 app.use(methodOverride('_method'));
 app.use(logger('dev'));

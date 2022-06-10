@@ -13,10 +13,10 @@
     <% sertifikat.forEach((sertifikat, i) => { i++ %>
       <tr class="col">
         <td><%= i %></td>
-        <td><%= sertifikat.peserta.name %></td>
-        <td><%= sertifikat.peserta.nim %></td>
-        <td><%= sertifikat.peserta.instansi %></td>
-        <td><%= sertifikat.peserta.biro.name%></td>
+        <td class="text-bold"><%= sertifikat?.peserta?.name ?? '-' %></td>
+        <td><%= sertifikat?.peserta?.nim ?? '-' %></td>
+        <td><%= sertifikat?.peserta?.instansi ?? '-' %></td>
+        <td><%= sertifikat?.peserta?.biro?.name ?? '-'%></td>
         <td>
           <% if (sertifikat.status === 'Y') { %>
             <a href="/sertifikat/print/<%= sertifikat.id %>" class="btn  btn-success btn-sm">

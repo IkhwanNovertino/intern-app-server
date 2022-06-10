@@ -10,20 +10,28 @@ const moment = require('moment');
 module.exports = {
   index: async (req, res) => {
     try {
+      const alertMessage = req.flash('alertMessage');
+      const alertStatus = req.flash('alertStatus');
+      const alert = { message: alertMessage, status: alertStatus };
+
       const sertifikat = await Sertifikat
         .find()
-        .sort({ createdAt: -1})
+        .sort({ createdAt: -1 })
         .populate({
           path: 'peserta',
           populate: {path: 'biro'}
         })
-
+        
+      console.log(sertifikat);
       res.render('admin/sertifikat/view_sertifikat', {
         title: 'Halaman Sertifikat',
+        alert,
         sertifikat
       })
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/sertifikat')
     }
   },
   
@@ -52,8 +60,10 @@ module.exports = {
         // pembimbing
       })
 
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/sertifikat')
     }
   },
   actionCreate: async (req, res) => {
@@ -73,9 +83,14 @@ module.exports = {
           status
         }
       )
+
+      req.flash('alertMessage', 'Berhasil Membuat sertifikat');
+      req.flash('alertStatus', 'success');
       res.redirect('/sertifikat');
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/sertifikat')
     }
   },
   viewPrint: async (req, res) => {
@@ -83,14 +98,17 @@ module.exports = {
       const { id } = req.params;
       const sertifikat = await Sertifikat.findById(id)
         .populate('peserta pembina')
+      
       res.render('admin/sertifikat/sertifikat', {
         title: 'Halaman Cetak Sertifikat',
         tglFormatSertif,
         duration,
         sertifikat
       })
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/sertifikat')
     }
   },
   actionPrint: async (req, res) => {
@@ -103,8 +121,10 @@ module.exports = {
         duration,
         sertifikat
       })
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/sertifikat')
     }
   },
   viewRead: async (req, res) => {
@@ -131,8 +151,10 @@ module.exports = {
         pembimbing,
         biro
       })
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/sertifikat')
     }
   }
 }

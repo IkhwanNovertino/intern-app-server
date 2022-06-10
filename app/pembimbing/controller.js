@@ -3,14 +3,20 @@ const Pembimbing = require('./model');
 module.exports = {
   index: async (req, res) => {
     try {
+      const alertMessage = req.flash('alertMessage');
+      const alertStatus = req.flash('alertStatus');
+      const alert = { message: alertMessage, status: alertStatus };
+
       const pembimbing = await Pembimbing.find();
 
       res.render('admin/pembimbing/view_pembimbing', {
         title: 'Halaman Pembimbing',
-        pembimbing
+        pembimbing,
+        alert
       })
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembimbing')
     }
   },
@@ -19,8 +25,9 @@ module.exports = {
       res.render('admin/pembimbing/create', {
         title: 'Halaman Tambah Pembimbing'
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembimbing')
     }
   },
@@ -29,15 +36,18 @@ module.exports = {
       const { name, nip, jabatan } = req.body;
 
       let pembimbing = await Pembimbing({
-        name: name.trim(),
+        name: name.trim().toUpperCase(),
         nip: nip.replaceAll(' ', ''),
         jabatan: jabatan.trim().toUpperCase()
       })
       await pembimbing.save();
 
+      req.flash('alertMessage', 'Berhasil Menambah Data Pembimbing');
+      req.flash('alertStatus', 'success');
       res.redirect('/pembimbing');
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembimbing')
     }
   },
@@ -49,8 +59,9 @@ module.exports = {
         title: 'Halaman Ubah Pembimbing',
         pembimbing,
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembimbing')
     }
   },
@@ -67,9 +78,12 @@ module.exports = {
           jabatan: jabatan.trim().toUpperCase()
       })
 
+      req.flash('alertMessage', 'Berhasil Mengubah Data Pembimbing');
+      req.flash('alertStatus', 'success');
       res.redirect('/pembimbing');
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembimbing')
     }
   },
@@ -78,9 +92,12 @@ module.exports = {
       const { id } = req.params;
       await Pembimbing.deleteOne({ _id: id });
 
+      req.flash('alertMessage', 'Berhasil Menghapus Data Pembimbing');
+      req.flash('alertStatus', 'success');
       res.redirect('/pembimbing')
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/pembimbing')
     }
   }
