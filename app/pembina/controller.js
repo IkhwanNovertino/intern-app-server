@@ -5,6 +5,7 @@ module.exports = {
     try {
       const pembina = await Pembina.find();
       res.render('admin/pembina/view_pembina', {
+        title: 'Halaman Pembina',
         pembina
       })
     } catch (err) {
@@ -14,7 +15,9 @@ module.exports = {
   },
   viewCreate: async (req, res) => {
     try {
-      res.render('admin/pembina/create');
+      res.render('admin/pembina/create', {
+        title: 'Halaman Tambah Pembina',
+      });
     } catch (err) {
       console.log(err);
       res.redirect('/pembina')
@@ -42,6 +45,7 @@ module.exports = {
       const { id } = req.params;
       const pembina = await Pembina.findById(id)
       res.render('admin/pembina/edit', {
+        title: 'Halaman Ubah Pembina',
         pembina
       });
     } catch (err) {

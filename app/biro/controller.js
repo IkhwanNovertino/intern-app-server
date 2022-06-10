@@ -4,6 +4,7 @@ module.exports = {
     try {
       const biro = await Biro.find();
       res.render('admin/biro/view_biro', {
+        title: 'Halaman Bidang Kegiatan',
         biro
       })
     } catch (err) {
@@ -13,7 +14,9 @@ module.exports = {
   },
   viewCreate: async (req, res) => {
     try {
-      res.render('admin/biro/create');
+      res.render('admin/biro/create', {
+        title: 'Halaman Tambah Bidang Kegiatan'
+      });
     } catch (err) {
       console.log(err);
       res.redirect('/biro')
@@ -39,6 +42,7 @@ module.exports = {
       const { id } = req.params;
       const biro = await Biro.findById(id)
       res.render('admin/biro/edit', {
+        title: 'Halaman Ubah Bidang Kegiatan',
         biro
       });
     } catch (err) {

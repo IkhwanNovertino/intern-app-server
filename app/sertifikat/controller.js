@@ -19,6 +19,7 @@ module.exports = {
         })
 
       res.render('admin/sertifikat/view_sertifikat', {
+        title: 'Halaman Sertifikat',
         sertifikat
       })
     } catch (err) {
@@ -42,6 +43,7 @@ module.exports = {
       const pembina = await Pembina.find();
 
       res.render('admin/sertifikat/create', {
+        title: 'Halaman Buat Sertifikat',
         tglFormatForm,
         noSertif,
         sertifikat,
@@ -82,6 +84,7 @@ module.exports = {
       const sertifikat = await Sertifikat.findById(id)
         .populate('peserta pembina')
       res.render('admin/sertifikat/sertifikat', {
+        title: 'Halaman Cetak Sertifikat',
         tglFormatSertif,
         duration,
         sertifikat
@@ -121,6 +124,7 @@ module.exports = {
       const biro = await Biro.find()
       
       res.render('admin/sertifikat/read', {
+        title: 'Halaman Data Sertifikat',
         tglFormatForm,
         sertifikat,
         pembina,

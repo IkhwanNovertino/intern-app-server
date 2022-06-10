@@ -18,6 +18,7 @@ module.exports = {
       // }
 
       res.render('admin/peserta/view_peserta', {
+        title: 'Halaman Peserta Magang',
         peserta,
         tglFormat
         
@@ -32,6 +33,7 @@ module.exports = {
       const pembimbing = await Pembimbing.find();
 
       res.render('admin/peserta/create', {
+        title: 'Halaman Tambah Peserta Magang',
         biro,
         pembimbing,
       })
@@ -78,6 +80,7 @@ module.exports = {
       // }
 
       res.render('admin/peserta/edit', {
+        title: 'Halaman Ubah Peserta Magang',
         pembimbing,
         biro,
         peserta,

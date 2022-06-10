@@ -6,6 +6,7 @@ module.exports = {
       const pembimbing = await Pembimbing.find();
 
       res.render('admin/pembimbing/view_pembimbing', {
+        title: 'Halaman Pembimbing',
         pembimbing
       })
     } catch (err) {
@@ -16,6 +17,7 @@ module.exports = {
   viewCreate: async (req, res) => {
     try {
       res.render('admin/pembimbing/create', {
+        title: 'Halaman Tambah Pembimbing'
       });
     } catch (err) {
       console.log(err);
@@ -44,6 +46,7 @@ module.exports = {
       const { id } = req.params;
       const pembimbing = await Pembimbing.findById(id)
       res.render('admin/pembimbing/edit', {
+        title: 'Halaman Ubah Pembimbing',
         pembimbing,
       });
     } catch (err) {
