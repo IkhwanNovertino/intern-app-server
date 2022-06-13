@@ -12,7 +12,8 @@ module.exports = {
       res.render('admin/pembimbing/view_pembimbing', {
         title: 'Halaman Pembimbing',
         pembimbing,
-        alert
+        alert,
+        name: req.session.user.name
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -23,7 +24,8 @@ module.exports = {
   viewCreate: async (req, res) => {
     try {
       res.render('admin/pembimbing/create', {
-        title: 'Halaman Tambah Pembimbing'
+        title: 'Halaman Tambah Pembimbing',
+        name: req.session.user.name
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -58,6 +60,7 @@ module.exports = {
       res.render('admin/pembimbing/edit', {
         title: 'Halaman Ubah Pembimbing',
         pembimbing,
+        name: req.session.user.name
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);

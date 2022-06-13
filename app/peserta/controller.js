@@ -20,7 +20,8 @@ module.exports = {
         title: 'Halaman Peserta Magang',
         peserta,
         tglFormat,
-        alert
+        alert,
+        name: req.session.user.name
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -37,6 +38,7 @@ module.exports = {
         title: 'Halaman Tambah Peserta Magang',
         biro,
         pembimbing,
+        name: req.session.user.name
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -86,6 +88,7 @@ module.exports = {
         biro,
         peserta,
         tglFormatForm,
+        name: req.session.user.name
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);

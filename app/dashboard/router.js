@@ -1,8 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const { index } = require('./controller');
+const { isLoginAdmmin } = require('../middleware/auth');
 
-/* GET home page. */
+router.use(isLoginAdmmin)
 router.get('/', index);
 
 module.exports = router;

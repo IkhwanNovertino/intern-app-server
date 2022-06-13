@@ -11,7 +11,8 @@ module.exports = {
       res.render('admin/pembina/view_pembina', {
         title: 'Halaman Pembina',
         pembina,
-        alert
+        alert,
+        name: req.session.user.name
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -23,6 +24,7 @@ module.exports = {
     try {
       res.render('admin/pembina/create', {
         title: 'Halaman Tambah Pembina',
+        name: req.session.user.name
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -56,7 +58,8 @@ module.exports = {
       const pembina = await Pembina.findById(id)
       res.render('admin/pembina/edit', {
         title: 'Halaman Ubah Pembina',
-        pembina
+        pembina,
+        name: req.session.user.name
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);

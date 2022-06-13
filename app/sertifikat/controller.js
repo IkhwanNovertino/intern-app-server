@@ -26,7 +26,8 @@ module.exports = {
       res.render('admin/sertifikat/view_sertifikat', {
         title: 'Halaman Sertifikat',
         alert,
-        sertifikat
+        sertifikat,
+        name: req.session.user.name
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -46,8 +47,6 @@ module.exports = {
           populate: { path: 'biro pembimbing' }
         })
 
-      // const biro = await Biro.find();
-      // const pembimbing = await Pembimbing.find();
       const pembina = await Pembina.find();
 
       res.render('admin/sertifikat/create', {
@@ -55,9 +54,8 @@ module.exports = {
         tglFormatForm,
         noSertif,
         sertifikat,
-        // biro,
         pembina,
-        // pembimbing
+        name: req.session.user.name
       })
 
     } catch (error) {
@@ -103,7 +101,8 @@ module.exports = {
         title: 'Halaman Cetak Sertifikat',
         tglFormatSertif,
         duration,
-        sertifikat
+        sertifikat,
+        name: req.session.user.name
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -149,7 +148,8 @@ module.exports = {
         sertifikat,
         pembina,
         pembimbing,
-        biro
+        biro,
+        name: req.session.user.name
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);

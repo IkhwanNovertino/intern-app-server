@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const session = require('express-session')
 const flash = require('connect-flash');
 
+const userRouter = require('./app/user/router');
 const dashboardRouter = require('./app/dashboard/router');
 const biroRouter = require('./app/biro/router');
 const pembinaRouter = require('./app/pembina/router');
@@ -37,7 +38,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/adminlte', express.static(path.join(__dirname, '/node_modules/admin-lte')));
 
-app.use('/', dashboardRouter);
+app.use('/', userRouter);
+app.use('/dashboard', dashboardRouter);
 app.use('/biro', biroRouter);
 app.use('/pembina', pembinaRouter);
 app.use('/pembimbing', pembimbingRouter);

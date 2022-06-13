@@ -13,7 +13,8 @@ module.exports = {
       res.render('admin/biro/view_biro', {
         title: 'Halaman Bidang Kegiatan',
         biro,
-        alert
+        alert,
+        name: req.session.user.name
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -24,7 +25,8 @@ module.exports = {
   viewCreate: async (req, res) => {
     try {
       res.render('admin/biro/create', {
-        title: 'Halaman Tambah Bidang Kegiatan'
+        title: 'Halaman Tambah Bidang Kegiatan',
+        name: req.session.user.name
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -54,7 +56,8 @@ module.exports = {
       const biro = await Biro.findById(id)
       res.render('admin/biro/edit', {
         title: 'Halaman Ubah Bidang Kegiatan',
-        biro
+        biro,
+        name: req.session.user.name
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
