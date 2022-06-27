@@ -18,14 +18,14 @@ module.exports = {
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
       req.flash('alertStatus', 'danger');
-      res.redirect('/')
+      res.redirect('/');
     }
   },
   actionSignin: async (req, res) => {
     try {
       const { username, password } = req.body;
       const check = await User.findOne({ username: username });
-
+      
       if (check) {
         if (check.status === 'Y') {
           const checkPassword = await bcrypt.compare(password, check.password)
@@ -49,7 +49,7 @@ module.exports = {
           res.redirect('/')
         }
       } else {
-        req.flash('alertMessage', 'Username yang diinputkan salah');
+        req.flash('alertMessage', 'Username tidak ditemukan');
         req.flash('alertStatus', 'danger');
         res.redirect('/')
       }

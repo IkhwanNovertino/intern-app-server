@@ -35,7 +35,6 @@ module.exports = {
       res.redirect('/sertifikat')
     }
   },
-  
   viewCreate: async (req, res) => {
     try {
       const { id } = req.params;
@@ -64,6 +63,7 @@ module.exports = {
       res.redirect('/sertifikat')
     }
   },
+
   actionCreate: async (req, res) => {
     try {
       const { id } = req.params;
@@ -91,6 +91,7 @@ module.exports = {
       res.redirect('/sertifikat')
     }
   },
+  
   viewPrint: async (req, res) => {
     try {
       const { id } = req.params;

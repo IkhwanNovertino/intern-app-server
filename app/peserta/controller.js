@@ -49,7 +49,6 @@ module.exports = {
   actionCreate: async (req, res) => {
     try {
       const { name, nim, instansi, jurusan, email, tglmulai, tglselesai, pembimbing, biro } = req.body;
-
       let peserta = await Peserta({
         name : name.trim().toUpperCase(),
         nim : nim.trim(),
@@ -63,18 +62,17 @@ module.exports = {
       })
       const pesertaId = peserta._id;
       await peserta.save();
-
       await Sertifikat({ peserta: pesertaId }).save();
-
       req.flash('alertMessage', 'Berhasil Menambahkan Data Peserta');
       req.flash('alertStatus', 'success');
       res.redirect('/peserta');
     } catch (error) {
-      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertMessage', 'Data peserta tidak tersimpan. pastikan semua field terisi');
       req.flash('alertStatus', 'danger');
       res.redirect('/peserta')
     }
   },
+
   viewEdit: async (req, res) => {
     try {
       const { id } = req.params;
