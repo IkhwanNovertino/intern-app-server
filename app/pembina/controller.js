@@ -12,7 +12,8 @@ module.exports = {
         title: 'Halaman Pembina',
         pembina,
         alert,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -24,7 +25,8 @@ module.exports = {
     try {
       res.render('admin/pembina/create', {
         title: 'Halaman Tambah Pembina',
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -59,7 +61,8 @@ module.exports = {
       res.render('admin/pembina/edit', {
         title: 'Halaman Ubah Pembina',
         pembina,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);

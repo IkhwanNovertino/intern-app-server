@@ -16,7 +16,8 @@ module.exports = {
         peserta,
         pesertaAktif,
         tglFormat,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       })
     } catch (err) {
       console.log(err);

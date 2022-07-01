@@ -3,7 +3,7 @@ const Biro = require('../biro/model');
 const Pembina = require('../pembina/model');
 const Pembimbing = require('../pembimbing/model');
 const Sertifikat = require('./model')
-const { tglFormat, noSertif, tglFormatForm, tglFormatSertif, duration } = require('../../utils/utils');
+const { noSertif, tglFormatForm, tglFormatSertif, duration, nipFormat, capitalize } = require('../../utils/utils');
 const moment = require('moment');
 
 
@@ -27,7 +27,8 @@ module.exports = {
         title: 'Halaman Sertifikat',
         alert,
         sertifikat,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -54,7 +55,8 @@ module.exports = {
         noSertif,
         sertifikat,
         pembina,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       })
 
     } catch (error) {
@@ -102,8 +104,11 @@ module.exports = {
         title: 'Halaman Cetak Sertifikat',
         tglFormatSertif,
         duration,
+        nipFormat,
+        capitalize,
         sertifikat,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -119,6 +124,8 @@ module.exports = {
       res.render('admin/sertifikat/sertifikat-print', {
         tglFormatSertif,
         duration,
+        nipFormat,
+        capitalize,
         sertifikat
       })
     } catch (error) {
@@ -150,7 +157,8 @@ module.exports = {
         pembina,
         pembimbing,
         biro,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);

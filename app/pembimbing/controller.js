@@ -1,4 +1,5 @@
 const Pembimbing = require('./model');
+const User = require('../user/model');
 
 module.exports = {
   index: async (req, res) => {
@@ -13,7 +14,8 @@ module.exports = {
         title: 'Halaman Pembimbing',
         pembimbing,
         alert,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -25,7 +27,8 @@ module.exports = {
     try {
       res.render('admin/pembimbing/create', {
         title: 'Halaman Tambah Pembimbing',
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -38,11 +41,19 @@ module.exports = {
       const { name, nip, jabatan } = req.body;
 
       let pembimbing = await Pembimbing({
-        name: name.trim().toUpperCase(),
+        name: name.trim(),
         nip: nip.replaceAll(' ', ''),
-        jabatan: jabatan.trim().toUpperCase()
+        jabatan: jabatan.trim()
       })
       await pembimbing.save();
+
+      let userPembimbing = await User({
+        name: name.trim(),
+        username: nip.replaceAll(' ', ''),
+        password: nip.replaceAll(' ', ''),
+        role: 'pembimbing',
+      })
+      await userPembimbing.save()
 
       req.flash('alertMessage', 'Berhasil Menambah Data Pembimbing');
       req.flash('alertStatus', 'success');
@@ -60,7 +71,8 @@ module.exports = {
       res.render('admin/pembimbing/edit', {
         title: 'Halaman Ubah Pembimbing',
         pembimbing,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);

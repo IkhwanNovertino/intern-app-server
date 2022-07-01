@@ -21,7 +21,8 @@ module.exports = {
         peserta,
         tglFormat,
         alert,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -38,7 +39,8 @@ module.exports = {
         title: 'Halaman Tambah Peserta Magang',
         biro,
         pembimbing,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -86,7 +88,8 @@ module.exports = {
         biro,
         peserta,
         tglFormatForm,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);

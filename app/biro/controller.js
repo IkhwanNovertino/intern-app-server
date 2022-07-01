@@ -14,7 +14,8 @@ module.exports = {
         title: 'Halaman Bidang Kegiatan',
         biro,
         alert,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -26,7 +27,8 @@ module.exports = {
     try {
       res.render('admin/biro/create', {
         title: 'Halaman Tambah Bidang Kegiatan',
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -57,7 +59,8 @@ module.exports = {
       res.render('admin/biro/edit', {
         title: 'Halaman Ubah Bidang Kegiatan',
         biro,
-        name: req.session.user.name
+        name: req.session.user.name,
+        role: req.session.user.role
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);

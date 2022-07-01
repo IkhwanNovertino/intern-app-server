@@ -133,12 +133,12 @@
       <div class="sertificate-signature col-12 text-center">
         <p class="signature-date">
           <span>Banjarbaru, <%= tglFormatSertif(sertifikat.tglTerbit) || tglFormatSertif(Date.now()) %></span><br>
-          <%= sertifikat.pembina.jabatan %> Komunikasi dan Informatika <br> Kota Banjarbaru
+          <%= capitalize(sertifikat.pembina.jabatan) %> Komunikasi dan Informatika <br> Kota Banjarbaru
         </p>
         <p class="signature-person">
           <span><%= sertifikat.pembina.name %></span> <br>
           Pembina Tk.I <br>
-          NIP. <%= sertifikat.pembina.nip %>
+          NIP. <%= nipFormat(sertifikat.pembina.nip) %>
         </p>
       </div>
         

@@ -1,7 +1,5 @@
 const moment = require('moment');
 
-
-
 const tglFormat = (value) => {
   let tgl = moment(value).format("D MMM YYYY");
   return tgl
@@ -44,4 +42,22 @@ const noSertif = (value) => {
   return `00${value}`;
 }
 
-module.exports = {tglFormat, tglFormatForm, tglFormatSertif, duration, noSertif}
+const nipFormat = (value) => {
+  let str = value;
+
+  let str1 = str.slice(0, 8);
+  let str2 = str.slice(8, 14);
+  let str3 = str.slice(-4, -3);
+  let str4 = str.slice(-3);
+
+  return `${str1}  ${str2}  ${str3}  ${str4}`
+}
+
+const capitalize = (value) => {
+  arr = value.split(' ');
+  let capitalizeLetter = arr.map(e => e.charAt(0).toUpperCase() + e.slice(1).toLowerCase());
+
+  return capitalizeLetter.join(' ');
+}
+
+module.exports = {tglFormat, tglFormatForm, tglFormatSertif, duration, noSertif, nipFormat, capitalize}
