@@ -41,9 +41,9 @@ module.exports = {
       const { name, nip, jabatan } = req.body;
 
       let pembimbing = await Pembimbing({
-        name: name.trim(),
+        name: name.trim().toUpperCase(),
         nip: nip.replaceAll(' ', ''),
-        jabatan: jabatan.trim()
+        jabatan: jabatan.trim().toUpperCase()
       })
       await pembimbing.save();
 
