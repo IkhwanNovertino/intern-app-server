@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const autoInc = require('mongoose-sequence')(mongoose)
+const moment = require('moment')
 
 let pesertaSchema = mongoose.Schema({
   name: {
@@ -33,6 +34,9 @@ let pesertaSchema = mongoose.Schema({
     type: Date,
     default: Date.now()
   },
+  tahun: {
+    type: String,
+  },
   pembimbing: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Pembimbing'
@@ -43,6 +47,11 @@ let pesertaSchema = mongoose.Schema({
   }
 }, { timestamps: true })
 
-pesertaSchema.plugin(autoInc, { id: 'peserta_seq', inc_field: 'noPeserta', reference_fields: ['tglmulai'] })
+pesertaSchema.pre('save', function (next) {
+  this.tahun = moment(this.tglselesai).format('YYYY');
+  next();
+})
+
+pesertaSchema.plugin(autoInc, { id: 'peserta_seq', inc_field: 'noPeserta', reference_fields: ['tahun'] })
 
 module.exports = mongoose.model('Peserta', pesertaSchema);
