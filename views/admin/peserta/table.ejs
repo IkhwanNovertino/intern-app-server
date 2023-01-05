@@ -7,7 +7,6 @@
     <th>Asal Sekolah/Kampus</th>
     <th style="width: 5vw;">Mulai Magang</th>
     <th style="width: 5vw;">Selesai Magang</th>
-    <th style="width: 10vw;">Bidang Kegiatan</th>
     <th>Aksi</th>
   </tr>
   </thead>
@@ -20,7 +19,6 @@
         <td><%= e.instansi %></td>
         <td><%= tglFormat(e.tglmulai) %></td>
         <td><%= tglFormat(e.tglselesai) %></td>
-        <td><%= e?.biro?.name ?? '-'%></td>
         <td>
           <form action="/peserta/delete/<%= e.id %>?_method=DELETE" method="post">
             <a href="/peserta/edit/<%= e.id %>" class="btn btn-warning btn-sm">

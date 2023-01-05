@@ -1,4 +1,5 @@
 const Pembina = require('./model');
+const path = 'admin/pembina'
 
 module.exports = {
   index: async (req, res) => {
@@ -8,7 +9,7 @@ module.exports = {
       const alert = { message: alertMessage, status: alertStatus };
 
       const pembina = await Pembina.find();
-      res.render('admin/pembina/view_pembina', {
+      res.render(`${path}/view_pembina`, {
         title: 'Halaman Pembina',
         pembina,
         alert,
@@ -23,7 +24,7 @@ module.exports = {
   },
   viewCreate: async (req, res) => {
     try {
-      res.render('admin/pembina/create', {
+      res.render(`${path}/create`, {
         title: 'Halaman Tambah Pembina',
         name: req.session.user.name,
         role: req.session.user.role
@@ -36,11 +37,12 @@ module.exports = {
   },
   actionCreate: async (req, res) => {
     try {
-      const { name, nip, jabatan } = req.body;
+      const { name, nip, jabatan, pangkat } = req.body;
 
       let pembina = await Pembina({
         name: name.trim().toUpperCase(),
         nip: nip.replaceAll(' ', ''),
+        pangkat: pangkat.trim().toUpperCase(),
         jabatan: jabatan.trim().toUpperCase()
       })
       await pembina.save();
@@ -58,7 +60,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const pembina = await Pembina.findById(id)
-      res.render('admin/pembina/edit', {
+      res.render(`${path}/edit`, {
         title: 'Halaman Ubah Pembina',
         pembina,
         name: req.session.user.name,
@@ -80,11 +82,12 @@ module.exports = {
         {
           name: name.trim().toUpperCase(),
           nip: nip.replaceAll(' ', ''),
+          pangkat: pangkat.trim().toUpperCase(),
           jabatan: jabatan.trim().toUpperCase()
         })
 
-        req.flash('alertMessage', 'Berhasil Mengubah Data Pembina');
-        req.flash('alertStatus', 'success');
+      req.flash('alertMessage', 'Berhasil Mengubah Data Pembina');
+      req.flash('alertStatus', 'success');
       res.redirect('/pembina');
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);

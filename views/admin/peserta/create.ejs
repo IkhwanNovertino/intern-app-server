@@ -91,23 +91,34 @@
                   <hr>
                   
                   <div class="form-group">
+                    <label for="pembimbing">Pembimbing Sekolah/Kampus :</label>
+                    <input type="text" name="pembimbing" class=" form-control" id="pembimbing"
+                      placeholder="Masukkan pembimbing dari sekolah/kampus..." required>
+                  </div>
+                  <div class="form-group">
+                    <label for="pembimbingKontak">Kontak Pembimbing Sekolah/Kampus :</label>
+                    <input type="number" maxlength="13" name="pembimbingKontak" class=" form-control" id="pembimbingKontak"
+                      placeholder="Masukkan no.hp yang dapat dihubungi..." required>
+                    <div id="nimHelp" class="form-text text-secondary">contoh: 081234567898.</div>
+                  </div>
+                  <!-- <div class="form-group">
                     <label for="pembimbing">Pembimbing :</label>
                     <select class="form-control select2" style="width: 100%;" name="pembimbing" id="pembimbing" required>
                       <option selected="selected">Pilih Pembimbing</option>
-                      <% pembimbing.forEach(e => { %>
-                        <option value="<%= e._id %>"><%= e.name %></option>
-                        <% }) %>
+                      <%# pembimbing.forEach(e => { %>
+                        <option value="<%# e._id %>"><%# e.name %></option>
+                        <%# }) %>
                     </select>
                   </div>
                   <div class="form-group">
                     <label for="biro">Bidang Kegiatan :</label>
                     <select class="form-control select2" style="width: 100%;" name="biro" id="biro" required>
                       <option selected="selected">Pilih Bidang Kegiatan</option>
-                      <% biro.forEach(e => { %>
-                        <option value="<%= e._id %>"><%= e.name %></option>
-                        <% }) %>
+                      <%# biro.forEach(e => { %>
+                        <option value="<%#= e._id %>"><%#= e.name %></option>
+                        <%# }) %>
                     </select>
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="card-footer">

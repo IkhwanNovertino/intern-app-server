@@ -1,4 +1,7 @@
 const Biro = require('./model');
+
+const path = 'admin/biro'
+
 module.exports = {
   index: async (req, res) => {
     try {
@@ -10,7 +13,7 @@ module.exports = {
       // console.log(alert);
 
       const biro = await Biro.find();
-      res.render('admin/biro/view_biro', {
+      res.render(`${path}/view_biro`, {
         title: 'Halaman Bidang Kegiatan',
         biro,
         alert,
@@ -25,7 +28,7 @@ module.exports = {
   },
   viewCreate: async (req, res) => {
     try {
-      res.render('admin/biro/create', {
+      res.render(`${path}/create`, {
         title: 'Halaman Tambah Bidang Kegiatan',
         name: req.session.user.name,
         role: req.session.user.role
@@ -56,7 +59,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const biro = await Biro.findById(id)
-      res.render('admin/biro/edit', {
+      res.render(`${path}/edit`, {
         title: 'Halaman Ubah Bidang Kegiatan',
         biro,
         name: req.session.user.name,
@@ -70,12 +73,12 @@ module.exports = {
   },
   actionEdit: async (req, res) => {
     try {
-      
+
       const { id } = req.params;
       const { name } = req.body;
-      
+
       await Biro.findOneAndUpdate({ _id: id }, { name: name.trim().toUpperCase() })
-      
+
       req.flash('alertMessage', 'Berhasil Mengubah Bidang Kegiatan');
       req.flash('alertStatus', 'success');
       res.redirect('/biro');
@@ -87,10 +90,10 @@ module.exports = {
   },
   actionDelete: async (req, res) => {
     try {
-      
+
       const { id } = req.params;
       await Biro.deleteOne({ _id: id });
-      
+
       req.flash('alertMessage', 'Berhasil Menghapus Bidang Kegiatan');
       req.flash('alertStatus', 'success');
       res.redirect('/biro')

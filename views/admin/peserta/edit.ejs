@@ -91,50 +91,17 @@
                     </div>
                   </div>
                   <hr>
-                  <!-- <div class="form-group">
-                    <label for="pembimbing">Pembina :</label>
-                    <select class="form-control select2" style="width: 100%;" name="pembina" id="pembina">
-                      <option selected="selected">Pilih Pembina</option>
-                      <%# pembina.forEach(e => { %>
-                        <option value="<%#= e._id %>"
-                          <%# if (peserta.pembina._id.toString() === e._id.toString()) { %>
-                            selected
-                          <%# } %>
-                        >
-                          <%#= e.name %>
-                        </option>
-                        <%# }) %>
-                    </select>
-                  </div> -->
+                  
                   <div class="form-group">
-                    <label for="pembimbing">Pembimbing :</label>
-                    <select class="form-control select2" style="width: 100%;" name="pembimbing" id="pembimbing">
-                      <option selected="selected">Pilih Pembimbing</option>
-                      <% pembimbing.forEach(e => { %>
-                        <option value="<%= e._id %>"
-                          <% if (peserta.pembimbing._id.toString() === e._id.toString()) { %>
-                            selected
-                          <% } %>
-                        >
-                          <%= e.name %>
-                        </option>
-                        <% }) %>
-                    </select>
+                    <label for="pembimbing">Pembimbing Sekolah/Kampus :</label>
+                    <input type="text" name="pembimbing" class=" form-control" id="pembimbing"
+                      placeholder="Masukkan pembimbing dari sekolah/kampus..." value="<%= peserta.pembimbing.name %>" required>
                   </div>
                   <div class="form-group">
-                    <label for="biro">Bidang Kegiatan :</label>
-                    <select class="form-control select2" style="width: 100%;" name="biro" id="biro">
-                      <option selected="selected">Pilih Bidang Kegiatan</option>
-                      <% biro.forEach(e => { %>
-                        <option value="<%= e._id %>"
-                          <% if (peserta.biro._id.toString() === e._id.toString()) { %>
-                            selected
-                          <% } %>
-                        >
-                          <%= e.name %>
-                        </option>
-                        <% }) %>
-                    </select>
+                    <label for="pembimbingKontak">Kontak Pembimbing Sekolah/Kampus :</label>
+                    <input type="number" maxlength="13" name="pembimbingKontak" class=" form-control" id="pembimbingKontak"
+                      placeholder="Masukkan no.hp yang dapat dihubungi..." value="<%= peserta.pembimbing.kontak.noHP %>" required>
+                    <div id="nimHelp" class="form-text text-secondary">contoh: 081234567898.</div>
                   </div>
                 </div>
 

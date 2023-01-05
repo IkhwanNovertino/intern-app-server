@@ -1,5 +1,7 @@
-const Pembimbing = require('./model');
+const Supervisor = require('./model');
 const User = require('../user/model');
+
+const path = 'admin/pembimbing';
 
 module.exports = {
   index: async (req, res) => {
@@ -8,11 +10,11 @@ module.exports = {
       const alertStatus = req.flash('alertStatus');
       const alert = { message: alertMessage, status: alertStatus };
 
-      const pembimbing = await Pembimbing.find();
+      const supervisor = await Supervisor.find();
 
-      res.render('admin/pembimbing/view_pembimbing', {
+      res.render(`${path}/view_pembimbing`, {
         title: 'Halaman Pembimbing',
-        pembimbing,
+        supervisor,
         alert,
         name: req.session.user.name,
         role: req.session.user.role
@@ -25,7 +27,7 @@ module.exports = {
   },
   viewCreate: async (req, res) => {
     try {
-      res.render('admin/pembimbing/create', {
+      res.render(`${path}/create`, {
         title: 'Halaman Tambah Pembimbing',
         name: req.session.user.name,
         role: req.session.user.role
@@ -40,20 +42,20 @@ module.exports = {
     try {
       const { name, nip, jabatan } = req.body;
 
-      let pembimbing = await Pembimbing({
+      let supervisor = await Supervisor({
         name: name.trim().toUpperCase(),
         nip: nip.replaceAll(' ', ''),
         jabatan: jabatan.trim().toUpperCase()
       })
-      await pembimbing.save();
+      await supervisor.save();
 
-      let userPembimbing = await User({
+      let userSupervisor = await User({
         name: name.trim(),
         username: nip.replaceAll(' ', ''),
         password: nip.replaceAll(' ', ''),
         role: 'pembimbing',
       })
-      await userPembimbing.save()
+      await userSupervisor.save()
 
       req.flash('alertMessage', 'Berhasil Menambah Data Pembimbing');
       req.flash('alertStatus', 'success');
@@ -67,10 +69,10 @@ module.exports = {
   viewEdit: async (req, res) => {
     try {
       const { id } = req.params;
-      const pembimbing = await Pembimbing.findById(id)
-      res.render('admin/pembimbing/edit', {
+      const supervisor = await Supervisor.findById(id)
+      res.render(`${path}/edit`, {
         title: 'Halaman Ubah Pembimbing',
-        pembimbing,
+        supervisor,
         name: req.session.user.name,
         role: req.session.user.role
       });
@@ -85,13 +87,13 @@ module.exports = {
       const { id } = req.params;
       const { name, nip, jabatan } = req.body;
 
-      await Pembimbing.findOneAndUpdate(
+      await Supervisor.findOneAndUpdate(
         { _id: id },
         {
           name: name.trim().toUpperCase(),
           nip: nip.replaceAll(' ', ''),
           jabatan: jabatan.trim().toUpperCase()
-      })
+        })
 
       req.flash('alertMessage', 'Berhasil Mengubah Data Pembimbing');
       req.flash('alertStatus', 'success');
@@ -105,7 +107,7 @@ module.exports = {
   actionDelete: async (req, res) => {
     try {
       const { id } = req.params;
-      await Pembimbing.deleteOne({ _id: id });
+      await Supervisor.deleteOne({ _id: id });
 
       req.flash('alertMessage', 'Berhasil Menghapus Data Pembimbing');
       req.flash('alertStatus', 'success');

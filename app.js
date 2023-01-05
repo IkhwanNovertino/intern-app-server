@@ -11,7 +11,7 @@ const userRouter = require('./app/user/router');
 const dashboardRouter = require('./app/dashboard/router');
 const biroRouter = require('./app/biro/router');
 const pembinaRouter = require('./app/pembina/router');
-const pembimbingRouter = require('./app/pembimbing/router');
+const pembimbingRouter = require('./app/supervisor/router');
 const pesertaRouter = require('./app/peserta/router');
 const sertifikatRouter = require('./app/sertifikat/router');
 

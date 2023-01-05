@@ -1,10 +1,12 @@
 const Peserta = require('../peserta/model')
 const Biro = require('../biro/model');
 const Pembina = require('../pembina/model');
-const Pembimbing = require('../pembimbing/model');
+const Pembimbing = require('../supervisor/model');
 const Sertifikat = require('./model')
 const { noSertif, tglFormatForm, tglFormatSertif, duration, nipFormat, capitalize } = require('../../utils/utils');
 const moment = require('moment');
+
+const path = 'admin/sertifikat';
 
 
 module.exports = {
@@ -19,11 +21,11 @@ module.exports = {
         .sort({ createdAt: -1 })
         .populate({
           path: 'peserta',
-          populate: {path: 'biro'}
+          populate: { path: 'biro' }
         })
-        
+
       console.log(sertifikat);
-      res.render('admin/sertifikat/view_sertifikat', {
+      res.render(`${path}/view_sertifikat`, {
         title: 'Halaman Sertifikat',
         alert,
         sertifikat,
@@ -49,7 +51,7 @@ module.exports = {
 
       const pembina = await Pembina.find();
 
-      res.render('admin/sertifikat/create', {
+      res.render(`${path}/create`, {
         title: 'Halaman Buat Sertifikat',
         tglFormatForm,
         noSertif,
@@ -69,8 +71,8 @@ module.exports = {
   actionCreate: async (req, res) => {
     try {
       const { id } = req.params;
-      const {status} = req.query
-      
+      const { status } = req.query
+
       const { nilai, tglTerbit, noSertifikat, pembina } = req.body;
 
       await Sertifikat.findOneAndUpdate(
@@ -93,14 +95,14 @@ module.exports = {
       res.redirect('/sertifikat')
     }
   },
-  
+
   viewPrint: async (req, res) => {
     try {
       const { id } = req.params;
       const sertifikat = await Sertifikat.findById(id)
         .populate('peserta pembina')
-      
-      res.render('admin/sertifikat/sertifikat', {
+
+      res.render(`${path}/sertifikat`, {
         title: 'Halaman Cetak Sertifikat',
         tglFormatSertif,
         duration,
@@ -121,7 +123,7 @@ module.exports = {
       const { id } = req.params;
       const sertifikat = await Sertifikat.findById(id)
         .populate('peserta pembina')
-      res.render('admin/sertifikat/sertifikat-print', {
+      res.render(`${path}/sertifikat-print`, {
         tglFormatSertif,
         duration,
         nipFormat,
@@ -145,12 +147,12 @@ module.exports = {
           populate: { path: 'biro pembimbing' }
         })
         .populate('pembina')
-      
+
       const pembina = await Pembina.find()
       const pembimbing = await Pembimbing.find()
       const biro = await Biro.find()
-      
-      res.render('admin/sertifikat/read', {
+
+      res.render(`${path}/read`, {
         title: 'Halaman Data Sertifikat',
         tglFormatForm,
         sertifikat,

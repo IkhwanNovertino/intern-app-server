@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let pembimbingSchema = mongoose.Schema({
+let supervisorSchema = mongoose.Schema({
   name: {
     type: String,
     require: [true, 'nama harus diisi']
@@ -15,4 +15,4 @@ let pembimbingSchema = mongoose.Schema({
   },
 }, { timestamps: true })
 
-module.exports = mongoose.model('Pembimbing', pembimbingSchema);
+module.exports = mongoose.model('Supervisor', supervisorSchema);

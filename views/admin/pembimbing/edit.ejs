@@ -32,27 +32,26 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Ubah Pembimbing <%= pembimbing.name %></h3>
+                <h3 class="card-title">Ubah Pembimbing <%= supervisor.name %></h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="/pembimbing/edit/<%= pembimbing._id %>?_method=PUT" method="post">
+              <form action="/pembimbing/edit/<%= supervisor._id %>?_method=PUT" method="post">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Nama Pembimbing :</label>
                     <input type="text" name="name" class=" form-control" id="name"
-                      placeholder="Masukkan bidang kegiatan..." value="<%= pembimbing.name %>" required>
+                      placeholder="Masukkan bidang kegiatan..." value="<%= supervisor.name %>" required>
                   </div>
                   <div class="form-group">
                     <label for="nip">No. Induk Pegawai :</label>
                     <input type="text" name="nip" class=" form-control" id="nip" maxlength="21"
-                      placeholder="Masukkan no. Induk Pegawai..." value="<%= pembimbing.nip %>" required>
-                    <div id="nipHelp" class="form-text text-secondary">contoh: 20001101 202103 1 024.</div>
+                      placeholder="Masukkan no. Induk Pegawai..." value="<%= supervisor.nip %>" required>
                   </div>
                   <div class="form-group">
                     <label for="jabatan">Jabatan :</label>
                     <input type="text" name="jabatan" class=" form-control" id="jabatan"
-                      placeholder="Masukkan jabatan..." value="<%= pembimbing.jabatan %>" required>
+                      placeholder="Masukkan jabatan..." value="<%= supervisor.jabatan %>" required>
                   </div>
                 </div>
 

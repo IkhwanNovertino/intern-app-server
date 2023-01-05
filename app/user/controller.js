@@ -21,11 +21,12 @@ module.exports = {
       res.redirect('/');
     }
   },
+
   actionSignin: async (req, res) => {
     try {
       const { username, password } = req.body;
       const check = await User.findOne({ username: username });
-      
+
       if (check) {
         if (check.status === 'Y') {
           const checkPassword = await bcrypt.compare(password, check.password)
@@ -59,6 +60,7 @@ module.exports = {
       res.redirect('/')
     }
   },
+
   actionLogout: (req, res) => {
     req.session.destroy();
     res.redirect('/');

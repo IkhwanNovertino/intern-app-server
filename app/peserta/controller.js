@@ -1,9 +1,11 @@
 const moment = require('moment');
 const Biro = require('../biro/model');
-const Pembimbing = require('../pembimbing/model');
+// const Pembimbing = require('../supervisor/model');
 const Sertifikat = require('../sertifikat/model');
 const Peserta = require('./model');
 const { tglFormat, tglFormatForm } = require('../../utils/utils');
+
+const path = 'admin/peserta';
 
 module.exports = {
   index: async (req, res) => {
@@ -15,8 +17,8 @@ module.exports = {
       const peserta = await Peserta.find()
         .sort({ createdAt: -1 })
         .populate('biro');
-      
-      res.render('admin/peserta/view_peserta', {
+
+      res.render(`${path}/view_peserta`, {
         title: 'Halaman Peserta Magang',
         peserta,
         tglFormat,
@@ -32,13 +34,13 @@ module.exports = {
   },
   viewCreate: async (req, res) => {
     try {
-      const biro = await Biro.find();
-      const pembimbing = await Pembimbing.find();
+      // const biro = await Biro.find();
+      // const pembimbing = await Pembimbing.find();
 
-      res.render('admin/peserta/create', {
+      res.render(`${path}/create`, {
         title: 'Halaman Tambah Peserta Magang',
-        biro,
-        pembimbing,
+        // biro,
+        // pembimbing,
         name: req.session.user.name,
         role: req.session.user.role
       })
@@ -50,17 +52,23 @@ module.exports = {
   },
   actionCreate: async (req, res) => {
     try {
-      const { name, nim, instansi, jurusan, email, tglmulai, tglselesai, pembimbing, biro } = req.body;
+      // res.send(req.body);
+      console.log('result: ', req.body);
+      const { name, nim, instansi, jurusan, email, tglmulai, tglselesai, pembimbing, pembimbingKontak } = req.body;
       let peserta = await Peserta({
-        name : name.trim().toUpperCase(),
-        nim : nim.trim(),
+        name: name.trim().toUpperCase(),
+        nim: nim.trim(),
         instansi: instansi.trim().toUpperCase(),
         jurusan: jurusan.trim().toUpperCase(),
         email,
         tglmulai,
         tglselesai,
-        pembimbing,
-        biro
+        pembimbing: {
+          name: pembimbing.trim().toUpperCase(),
+          kontak: {
+            noHP: pembimbingKontak
+          }
+        }
       })
       const pesertaId = peserta._id;
       await peserta.save();
@@ -79,13 +87,13 @@ module.exports = {
     try {
       const { id } = req.params;
       const peserta = await Peserta.findById(id)
-      const biro = await Biro.find();
-      const pembimbing = await Pembimbing.find();
+      // const biro = await Biro.find();
+      // const pembimbing = await Pembimbing.find();
 
-      res.render('admin/peserta/edit', {
+      res.render(`${path}/edit`, {
         title: 'Halaman Ubah Peserta Magang',
-        pembimbing,
-        biro,
+        // pembimbing,
+        // biro,
         peserta,
         tglFormatForm,
         name: req.session.user.name,
@@ -101,21 +109,28 @@ module.exports = {
     try {
       const { id } = req.params;
       const { name, nim, instansi, jurusan, email,
-        tglmulai, tglselesai, pembimbing, biro } = req.body;
+        tglmulai, tglselesai, pembimbing, pembimbingKontak } = req.body;
 
       await Peserta.findOneAndUpdate(
         { _id: id },
         {
-          name : name.trim().toUpperCase(),
-          nim : nim.trim(),
+          name: name.trim().toUpperCase(),
+          nim: nim.trim(),
           instansi: instansi.trim().toUpperCase(),
           jurusan: jurusan.trim().toUpperCase(),
           email,
-          tglmulai, tglselesai, pembimbing, biro
+          tglmulai,
+          tglselesai,
+          pembimbing: {
+            name: pembimbing.trim().toUpperCase(),
+            kontak: {
+              noHP: pembimbingKontak
+            }
+          }
         })
 
-        req.flash('alertMessage', 'Berhasil Mengubah Data Peserta');
-        req.flash('alertStatus', 'success');
+      req.flash('alertMessage', 'Berhasil Mengubah Data Peserta');
+      req.flash('alertStatus', 'success');
       res.redirect('/peserta');
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);

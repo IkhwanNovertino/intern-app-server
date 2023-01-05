@@ -9,7 +9,7 @@ let pesertaSchema = mongoose.Schema({
   },
   noPeserta: {
     type: Number,
-    default:0
+    default: 0
   },
   nim: {
     type: String,
@@ -38,12 +38,16 @@ let pesertaSchema = mongoose.Schema({
     type: String,
   },
   pembimbing: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Pembimbing'
-  },
-  biro: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Biro'
+    name: {
+      type: String,
+      require: [true, 'nama harus diisi']
+    },
+    kontak: {
+      noHP: {
+        type: String,
+        default: "+62"
+      }
+    }
   }
 }, { timestamps: true })
 
