@@ -6,7 +6,7 @@ module.exports = {
   index: async (req, res) => {
     try {
       const peserta = await Peserta.find()
-        .populate('biro').sort({ createdAt: -1});
+        .populate('biro').sort({ createdAt: -1 });
 
       // Menghitung peserta aktif
       let pesertaAktif = peserta.filter(val => Date.now() >= val.tglmulai && Date.now() <= val.tglselesai)

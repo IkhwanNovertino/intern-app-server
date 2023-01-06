@@ -82,19 +82,17 @@
                       <th>Asal Sekolah/Kampus</th>
                       <th>Mulai</th>
                       <th>Selesai</th>
-                      <!-- <th>Bidang Kegiatan</th> -->
                       <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     <% peserta.forEach((peserta, i) => {i++ %>
-                      <tr>
+                      <tr class="col">
                         <td><%= i %></td>
                         <td class="font-weight-bold text-small"><%= peserta.name %></td>
                         <td><%= peserta.instansi %></td>
                         <td><%= tglFormat(peserta.tglmulai) %></td>
                         <td><%= tglFormat(peserta.tglselesai) %></td>
-                        <td><%#= peserta.biro.name %></td>
                         <% if (Date.now() < peserta.tglmulai) { %>
                           <td><span class="badge bg-warning">Proses</span></td>
                           <% } else if (Date.now() >= peserta.tglmulai && Date.now() <= peserta.tglselesai) { %>

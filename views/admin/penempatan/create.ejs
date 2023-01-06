@@ -1,0 +1,117 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Penempatan Peserta Magang</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/penempatan">Penempatan</a></li>
+            <li class="breadcrumb-item active">Tambah</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <!-- /.card-header -->
+          <div class="card-body">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Tambah Penempatan Peserta Magang</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form action="/penempatan/create" method="post">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="peserta">Nama peserta :</label>
+                    <select class="form-control select2" style="width: 100%;" name="peserta" id="peserta" required>
+                      <option selected="selected">Pilih peserta</option>
+                      <% peserta.forEach(e => { %>
+                        <%# console.log("peserta >>>", e) %>
+                        <option value="<%= e._id %>"><%= e.name %></option>
+                      <% }) %>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="supervisor">Pembimbing lapangan (Supervisor) :</label>
+                    <select class="form-control select2" style="width: 100%;" name="supervisor" id="supervisor" required>
+                      <option selected="selected">Pilih pembimbing</option>
+                      <% supervisor.forEach(e => { %>
+                        <%# console.log("supervisor >>>", e) %>
+                        <option value="<%= e._id %>"><%= e.name %> [ <%= e.jabatan.toLowerCase() %> ]</option>
+                        <% }) %>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="biro">Bidang Penempatan :</label>
+                    <select class="form-control select2" style="width: 100%;" name="biro" id="biro" required>
+                      <option selected="selected">Pilih Bidang kegiatan</option>
+                      <% biro.forEach(e => { %>
+                        <%# console.log("biro >>>", e) %>
+                        <option value="<%= e._id %>"><%= e.name %></option>
+                        <% }) %>
+                    </select>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label>Tanggal Mulai :</label>
+                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                              <input type="text" name="tglmulai" id="tglmulai" class="form-control datetimepicker-input" data-target="#reservationdate" required/>
+                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label>Tanggal Selesai :</label>
+                          <div class="input-group date" id="reservationdate1" data-target-input="nearest">
+                              <input type="text" name="tglselesai" id="tglselesai" class="form-control datetimepicker-input" data-target="#reservationdate" required/>
+                              <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>

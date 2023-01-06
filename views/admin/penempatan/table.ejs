@@ -1,0 +1,47 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+  <tr class="col">
+    <th>No.</th>
+    <th>Nama Lengkap</th>
+    <th>NIS/NIM</th>
+    <th>Asal Sekolah/Kampus</th>
+    <th>Mulai</th>
+    <th>Selesai</th>
+    <th>Bidang Kegiatan</th>
+    <th>Supervisor</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <% penempatan.forEach((e, i) => {i++ %>
+      <tr class="col">
+        <td><%= i %></td>
+        <td class="text-bold"><%= e.peserta.name %></td>
+        <td><%= e.peserta.nim %></td>
+        <td><%= e.peserta.instansi %></td>
+        <td><%= tglFormat(e.tglmulai) %></td>
+        <td><%= tglFormat(e.tglselesai) %></td>
+        <td><%= e.biro.name %></td>
+        <td><%= e.supervisor.name %></td>
+        <td>
+          <form action="/penempatan/delete/<%= e.id %>?_method=DELETE" method="post">
+            <a href="/penempatan/detail/<%= e.id %>" class="btn btn-default btn-sm">
+              detail
+            </a>
+            <% if(Date.now() >= e.tglselesai) {%>
+              <button class="btn btn-danger btn-sm disabled">
+                <!-- <i class="fas fa-trash-alt"></i> -->
+                Hapus
+              </button>
+            <% }else { %>
+              <button class="btn btn-danger btn-sm">
+                <!-- <i class="fas fa-trash-alt"></i> -->
+                Hapus
+              </button>
+            <% } %> 
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

@@ -1,0 +1,152 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Penempatan Peserta Magang</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/penempatan">Penempatan</a></li>
+            <li class="breadcrumb-item active">Detail</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <!-- /.card-header -->
+          <div class="card-body">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Detail Penempatan Peserta Magang</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputBorder">Nama peserta magang :</label>
+                    <input type="text" class="form-control form-control-border" 
+                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.peserta.nama %> " disabled>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputBorder">No.Induk peserta magang :</label>
+                    <input type="text" class="form-control form-control-border" 
+                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.peserta.nim %> " disabled>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputBorder">Instansi/asal sekolah peserta magang :</label>
+                    <input type="text" class="form-control form-control-border" 
+                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.peserta.instansi %> " disabled>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputBorder">Jurusan peserta magang :</label>
+                    <input type="text" class="form-control form-control-border" 
+                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.peserta.jurusan %> " disabled>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label>Tanggal mulai magang:</label>
+                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                              <input type="text" name="tglmulai" id="tglmulai" value="<%= tglFormatForm(penempatan.historyPenempatan.peserta.tglmulai_magang) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
+                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label>Tanggal selesai magang :</label>
+                          <div class="input-group date" id="reservationdate1" data-target-input="nearest">
+                              <input type="text" name="tglselesai" id="tglselesai" value="<%= tglFormatForm(penempatan.historyPenempatan.peserta.tglselesai_magang) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
+                              <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="form-group">
+                    <label for="exampleInputBorder">Nama Pembimbing lapangan (Supervisor) :</label>
+                    <input type="text" class="form-control form-control-border" 
+                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.supervisor.nama %>" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputBorder">No. Induk Pembimbing lapangan (Supervisor) :</label>
+                    <input type="text" class="form-control form-control-border" 
+                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.supervisor.nip %>" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputBorder">Jabatan Pembimbing lapangan (Supervisor) :</label>
+                    <input type="text" class="form-control form-control-border" 
+                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.supervisor.jabatan %>" disabled>
+                  </div>
+                  <hr>
+
+                  <div class="form-group">
+                    <label for="exampleInputBorder">Bidang Penempatan :</label>
+                    <input type="text" class="form-control form-control-border" 
+                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.biro.nama %> " disabled>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label>Tanggal mulai penempatan :</label>
+                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                              <input type="text" name="tglmulai" id="tglmulai" value="<%= tglFormatForm(penempatan.tglmulai) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
+                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label>Tanggal selesai penempatan :</label>
+                          <div class="input-group date" id="reservationdate1" data-target-input="nearest">
+                              <input type="text" name="tglselesai" id="tglselesai" value="<%= tglFormatForm(penempatan.tglselesai) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
+                              <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-footer">
+                  <a href="/penempatan" type="submit" class="btn btn-primary">Kembali</a>
+                </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>
