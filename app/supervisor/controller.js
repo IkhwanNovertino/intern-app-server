@@ -44,7 +44,7 @@ module.exports = {
 
       let supervisor = await Supervisor({
         name: name.trim().toUpperCase(),
-        nip: nip.replaceAll(' ', ''),
+        nip: nip.replace(/ /gi, ''),
         jabatan: jabatan.trim().toUpperCase()
       })
       await supervisor.save();
@@ -91,7 +91,7 @@ module.exports = {
         { _id: id },
         {
           name: name.trim().toUpperCase(),
-          nip: nip.replaceAll(' ', ''),
+          nip: nip.replace(/ /gi, ''),
           jabatan: jabatan.trim().toUpperCase()
         })
 
