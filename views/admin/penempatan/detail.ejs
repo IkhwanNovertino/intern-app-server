@@ -40,29 +40,29 @@
                   <div class="form-group">
                     <label for="exampleInputBorder">Nama peserta magang :</label>
                     <input type="text" class="form-control form-control-border" 
-                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.peserta.nama %> " disabled>
+                    id="exampleInputBorder" value="<%= penempatan.peserta.nama %> " disabled>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputBorder">No.Induk peserta magang :</label>
                     <input type="text" class="form-control form-control-border" 
-                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.peserta.nim %> " disabled>
+                    id="exampleInputBorder" value="<%= penempatan.peserta.nim %> " disabled>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputBorder">Instansi/asal sekolah peserta magang :</label>
                     <input type="text" class="form-control form-control-border" 
-                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.peserta.instansi %> " disabled>
+                    id="exampleInputBorder" value="<%= penempatan.peserta.instansi %> " disabled>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputBorder">Jurusan peserta magang :</label>
                     <input type="text" class="form-control form-control-border" 
-                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.peserta.jurusan %> " disabled>
+                    id="exampleInputBorder" value="<%= penempatan.peserta.jurusan %> " disabled>
                   </div>
                   <div class="row">
                     <div class="col">
                       <div class="form-group">
                         <label>Tanggal mulai magang:</label>
                           <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                              <input type="text" name="tglmulai" id="tglmulai" value="<%= tglFormatForm(penempatan.historyPenempatan.peserta.tglmulai_magang) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
+                              <input type="text" name="tglmulai" id="tglmulai" value="<%= tglFormatForm(penempatan.peserta.tglmulai_magang) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
                               <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                               </div>
@@ -73,7 +73,7 @@
                       <div class="form-group">
                         <label>Tanggal selesai magang :</label>
                           <div class="input-group date" id="reservationdate1" data-target-input="nearest">
-                              <input type="text" name="tglselesai" id="tglselesai" value="<%= tglFormatForm(penempatan.historyPenempatan.peserta.tglselesai_magang) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
+                              <input type="text" name="tglselesai" id="tglselesai" value="<%= tglFormatForm(penempatan.peserta.tglselesai_magang) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
                               <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
                                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                               </div>
@@ -85,24 +85,24 @@
                   <div class="form-group">
                     <label for="exampleInputBorder">Nama Pembimbing lapangan (Supervisor) :</label>
                     <input type="text" class="form-control form-control-border" 
-                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.supervisor.nama %>" disabled>
+                    id="exampleInputBorder" value="<%= penempatan.supervisor.nama %>" disabled>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputBorder">No. Induk Pembimbing lapangan (Supervisor) :</label>
                     <input type="text" class="form-control form-control-border" 
-                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.supervisor.nip %>" disabled>
+                    id="exampleInputBorder" value="<%= penempatan.supervisor.nip %>" disabled>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputBorder">Jabatan Pembimbing lapangan (Supervisor) :</label>
                     <input type="text" class="form-control form-control-border" 
-                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.supervisor.jabatan %>" disabled>
+                    id="exampleInputBorder" value="<%= penempatan.supervisor.jabatan %>" disabled>
                   </div>
                   <hr>
 
                   <div class="form-group">
                     <label for="exampleInputBorder">Bidang Penempatan :</label>
                     <input type="text" class="form-control form-control-border" 
-                    id="exampleInputBorder" value="<%= penempatan.historyPenempatan.biro.nama %> " disabled>
+                    id="exampleInputBorder" value="<%= penempatan.biro.nama %> " disabled>
                   </div>
                   <div class="row">
                     <div class="col">

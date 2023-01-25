@@ -32,9 +32,10 @@ module.exports = {
   },
   viewCreate: async (req, res) => {
     try {
-      const peserta = await Peserta.find();
+      const peserta = await Peserta.find().sort({ createdAt: -1 });
       const supervisor = await Supervisor.find();
       const biro = await Biro.find();
+
       res.render(`${path}/create`, {
         title: 'Halaman Tambah Penempatan peserta',
         peserta,
@@ -95,6 +96,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const penempatan = await Penempatan.findById(id)
+      
       res.render(`${path}/detail`, {
         title: 'Halaman Detail Penempatan Magang Detail',
         tglFormatForm,
