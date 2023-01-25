@@ -40,41 +40,41 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="/sertifikat/create/<%= sertifikat.id %>?status=Y" method="post">
+              <form action="/sertifikat/create/<%= peserta.id %>?status=Y" method="post">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="noSertifikat">Nomor Sertifikat :</label>
                     <input type="text" name="noSertifikat" class=" form-control" id="noSertifikat" 
-                      placeholder="Masukkan nama peserta..." value="13/<%=noSertif(sertifikat.peserta.noPeserta)%>/SRT/INFO/KOMINFO" disabled="disabled" required>
-                      <input type="text" name="noSertifikat" class=" form-control" id="noSertifikat" 
-                      placeholder="Masukkan nama peserta..." value="13/<%=noSertif(sertifikat.peserta.noPeserta)%>/SRT/INFO/KOMINFO" hidden required>
+                      value="13/<%=noSertif(peserta.noPeserta)%>/SRT/INFO/KOMINFO" disabled="disabled" required>
+                    <input type="text" name="noSertifikat" class=" form-control" id="noSertifikat" 
+                      value="13/<%=noSertif(peserta.noPeserta)%>/SRT/INFO/KOMINFO" hidden required>
                   </div>
                   <hr>
                   <div class="form-group">
                     <label for="name">Nama peserta :</label>
                     <input type="text" name="name" class=" form-control" id="name"
-                      placeholder="Masukkan nama peserta..." value="<%= sertifikat.peserta.name %>" disabled required>
+                      placeholder="Masukkan nama peserta..." value="<%= peserta.name %>" disabled required>
                   </div>
                   <div class="form-group">
                     <label for="nim">No. Induk Siswa/Mahasiswa :</label>
                     <input type="text" name="nim" class=" form-control" id="nim"
-                      placeholder="Masukkan no. Induk Siswa/Mahasiswa..." value="<%= sertifikat.peserta.nim %>" disabled required>
+                      placeholder="Masukkan no. Induk Siswa/Mahasiswa..." value="<%= peserta.nim %>" disabled required>
                     <!-- <div id="nimHelp" class="form-text text-secondary">contoh: 20001101 202103 1 024.</div> -->
                   </div>
                   <div class="form-group">
                     <label for="instansi">Instansi/ Asal Sekolah :</label>
                     <input type="text" name="instansi" class=" form-control" id="instansi"
-                      placeholder="Masukkan instansi..." value="<%= sertifikat.peserta.instansi %>" disabled required>
+                      placeholder="Masukkan instansi..." value="<%= peserta.instansi %>" disabled required>
                   </div>
                   <div class="form-group">
                     <label for="jurusan">Jurusan :</label>
                     <input type="text" name="jurusan" class=" form-control" id="jurusan"
-                      placeholder="Masukkan jurusan..." value="<%= sertifikat.peserta.jurusan %>" disabled required>
+                      placeholder="Masukkan jurusan..." value="<%= peserta.jurusan %>" disabled required>
                   </div>
                   <div class="form-group">
                     <label for="email">E-mail :</label>
                     <input type="email" name="email" class=" form-control" id="email"
-                      placeholder="Masukkan email..." value="<%= sertifikat.peserta.email %>" disabled required>
+                      placeholder="Masukkan email..." value="<%= peserta.email %>" disabled required>
                   </div>
                   <div class="row">
                     <div class="col">
@@ -82,7 +82,7 @@
                         <label>Tanggal Mulai :</label>
                           <div class="input-group date" id="reservationdate" data-target-input="nearest">
                               <input type="text" name="tglmulai" id="tglmulai" class="form-control datetimepicker-input" 
-                                data-target="#reservationdate" value="<%= tglFormatForm(sertifikat.peserta.tglmulai) %>" disabled required/>
+                                data-target="#reservationdate" value="<%= tglFormatForm(peserta.tglmulai) %>" disabled required/>
                               <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                               </div>
@@ -94,7 +94,7 @@
                         <label>Tanggal Selesai :</label>
                           <div class="input-group date" id="reservationdate1" data-target-input="nearest">
                               <input type="text" name="tglselesai" id="tglselesai" class="form-control datetimepicker-input" 
-                                data-target="#reservationdate" value="<%= tglFormatForm(sertifikat.peserta.tglselesai) %>" disabled required/>
+                                data-target="#reservationdate" value="<%= tglFormatForm(peserta.tglselesai) %>" disabled required/>
                               <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                               </div>
@@ -104,18 +104,20 @@
                   </div>
                   <hr>
                   <div class="form-group">
-                    <label for="pembimbing">Pembimbing :</label>
-                    <select class="form-control select2" style="width: 100%;" name="pembimbing" id="pembimbing" disabled>
-                      <option selected="selected">Pilih Pembimbing</option>
-                      <option value="<%= sertifikat.peserta.pembimbing.id %>" selected><%= sertifikat.peserta.pembimbing.name %></option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="biro">Bidang Kegiatan :</label>
-                    <select class="form-control select2" style="width: 100%;" name="biro" id="biro" disabled>
-                      <option selected="selected">Pilih Bidang Kegiatan</option>
-                      <option value="<%= sertifikat.peserta.biro.id %>" selected><%= sertifikat.peserta.biro.name %></option>
-                    </select>
+                    <label>Penempatan Bidang Kegiatan :</label>
+                    <div class="row">
+                    <% penempatan.forEach(e => { %>
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                          <div class="card">
+                            <div class="card-body">
+                              <p class="card-text font-italic"><%= tglFormatSertif(e.tglmulai) %>  - <%= tglFormatSertif(e.tglselesai) %></p>
+                              <p class="card-title text-bold mb-1 text-uppercase">Bidang <%= e.biro.nama %></p>
+                              <p class="card-text"><u><%= e.supervisor.nama %></u><br> NIP. <%= nipFormat(e.supervisor.nip) %></p>
+                            </div>
+                          </div>
+                        </div>
+                        <% }) %>
+                      </div>
                   </div>
                   <hr>
                   <div class="form-group">
@@ -142,10 +144,10 @@
                     <!-- <label>Tanggal Terbit sertifikat :</label> -->
                       <div class="input-group date" id="reservationdate" data-target-input="nearest">
                             <input type="text" name="tglTerbit" id="tglTerbit" class="form-control datetimepicker-input" 
-                              data-target="#reservationdate2" value="<%= tglFormatForm(Date.now()) %>" hidden required/>
-                            <!-- <div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+                              data-target="#reservationdate2" value="<%= tglFormatForm(Date.now()) %>" required/>
+                            <div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div> -->
+                            </div>
                       </div>
                   </div>
                 </div>

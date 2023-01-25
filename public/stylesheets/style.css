@@ -4,7 +4,7 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
 .select2-container .select2-selection--single {
@@ -36,7 +36,7 @@ a {
   margin-bottom: 20px;
 }
 .invoice .sertificate-number .sertificate-number-title {
-  color: #1E686F;
+  color: #1e686f;
   font: 100 52px/14px "League Gothic", sans-serif;
   letter-spacing: 1.2px;
 }
@@ -44,7 +44,7 @@ a {
   font-size: 23px;
 }
 .invoice .sertificate-name #name {
-  color: #1E686F;
+  color: #1e686f;
   font: 100 82px "League Gothic", sans-serif;
   letter-spacing: 1.5px;
 }
@@ -53,7 +53,7 @@ a {
   margin-bottom: 60px;
 }
 .invoice .sertificate-signature {
-  color: #1E686F;
+  color: #1e686f;
   line-height: 15px;
 }
 .invoice .sertificate-signature .signature-date {
@@ -68,4 +68,18 @@ a {
 .invoice .sertificate-signature .signature-person span {
   font-size: 14px;
   font-weight: bold;
+}
+
+.rekapitulasi {
+  background-color: #fff;
+  /* border: 1px solid rgba(0, 0, 0, 0.125); */
+  position: relative;
+}
+
+.rekapitulasi-title {
+  margin-top: 0;
+}
+
+.dark-mode .rekapitulasi {
+  background-color: #343a40;
 }

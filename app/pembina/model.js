@@ -9,10 +9,6 @@ let pembinaSchema = mongoose.Schema({
     type: String,
     require: [true, 'no. induk pegawai harus diisi']
   },
-  pangkat: {
-    type: String,
-    require: [true, 'pangkat harus diisi']
-  },
   jabatan: {
     type: String,
     require: [true, 'jabatan harus diisi']

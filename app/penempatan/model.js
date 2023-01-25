@@ -1,35 +1,63 @@
 const mongoose = require('mongoose');
 
 let penempatanSchema = mongoose.Schema({
-  historyPenempatan: {
-    peserta: {
-      nama: { type: String, require: [true, "Ada kendala pada pengambilan data peserta"] },
-      nim: { type: String, require: [true, "Ada kendala pada pengambilan data peserta"] },
-      instansi: { type: String, require: [true, "Ada kendala pada pengambilan data peserta"] },
-      jurusan: { type: String, require: [true, "Ada kendala pada pengambilan data peserta"] },
-      tglmulai_magang: { type: Date, default: Date.now() },
-      tglselesai_magang: { type: Date, default: Date.now() },
-    },
-    supervisor: {
-      nama: { type: String, require: [true, "Ada kendala pada pengambilan data supervisor"] },
-      nip: { type: String, require: [true, "Ada kendala pada pengambilan data supervisor"] },
-      jabatan: { type: String, require: [true, "Ada kendala pada pengambilan data supervisor"] },
-    },
-    biro: {
-      nama: { type: String, require: [true, "Ada kendala pada pengambilan data bidang kegiatan"] },
-    }
-  },
   peserta: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Peserta'
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Peserta'
+    },
+    nama: {
+      type: String,
+      require: [true, "Ada kendala pada pengambilan data peserta"]
+    },
+    nim: {
+      type: String,
+      require: [true, "Ada kendala pada pengambilan data peserta"]
+    },
+    instansi: {
+      type: String,
+      require: [true, "Ada kendala pada pengambilan data peserta"]
+    },
+    jurusan: {
+      type: String,
+      require: [true, "Ada kendala pada pengambilan data peserta"]
+    },
+    tglmulai_magang: {
+      type: Date,
+      default: Date.now()
+    },
+    tglselesai_magang: {
+      type: Date,
+      default: Date.now()
+    },
   },
   supervisor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Supervisor'
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Supervisor'
+    },
+    nama: {
+      type: String,
+      require: [true, "Ada kendala pada pengambilan data supervisor"]
+    },
+    nip: {
+      type: String,
+      require: [true, "Ada kendala pada pengambilan data supervisor"]
+    },
+    jabatan: {
+      type: String,
+      require: [true, "Ada kendala pada pengambilan data supervisor"]
+    },
   },
   biro: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Biro'
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Biro'
+    },
+    nama: {
+      type: String,
+      require: [true, "Ada kendala pada pengambilan data bidang kegiatan"]
+    },
   },
   tglmulai: {
     type: Date,

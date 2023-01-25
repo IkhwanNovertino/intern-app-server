@@ -7,14 +7,11 @@ module.exports = {
     try {
       const alertMessage = req.flash('alertMessage');
       const alertStatus = req.flash('alertStatus');
-
       const alert = { message: alertMessage, status: alertStatus };
-
-      // console.log(alert);
 
       const biro = await Biro.find();
       res.render(`${path}/view_biro`, {
-        title: 'Halaman Bidang Kegiatan',
+        title: 'Daftar Bidang Kegiatan',
         biro,
         alert,
         name: req.session.user.name,

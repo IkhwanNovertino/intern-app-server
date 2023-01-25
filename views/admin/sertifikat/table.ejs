@@ -5,31 +5,38 @@
     <th>Nama Lengkap</th>
     <th>NIS/NIM</th>
     <th>Asal Sekolah/Kampus</th>
-    <th>Bidang Kegiatan</th>
     <th>Aksi</th>
   </tr>
   </thead>
   <tbody>
-    <% sertifikat.forEach((sertifikat, i) => { i++ %>
+    <% peserta.forEach((peserta, i) => { i++ %>
       <tr class="col">
         <td><%= i %></td>
-        <td class="text-bold"><%= sertifikat?.peserta?.name ?? '-' %></td>
-        <td><%= sertifikat?.peserta?.nim ?? '-' %></td>
-        <td><%= sertifikat?.peserta?.instansi ?? '-' %></td>
-        <td><%= sertifikat?.peserta?.biro?.name ?? '-'%></td>
+        <td class="text-bold"><%= peserta?.name ?? '-' %></td>
+        <td><%= peserta?.nim ?? '-' %></td>
+        <td><%= peserta?.instansi ?? '-' %></td>
         <td>
-          <% if (sertifikat.status === 'Y') { %>
-            <a href="/sertifikat/print/<%= sertifikat.id %>" class="btn  btn-success btn-sm">
+          <% if (peserta.sertifikat.status === 'N') { %>
+            <% if (Date.now() <= peserta.tglselesai ) { %>
+              <a href="/sertifikat/create/<%= peserta.id %>" class="btn  btn-primary btn-sm disabled">
+                Buat Sertifikat
+              </a>
+              <a href="/sertifikat/read/<%= peserta.id %>" class="btn  btn-default btn-sm">
+                Tampilkan Data
+              </a>
+            <% } else {%>
+              <a href="/sertifikat/create/<%= peserta.id %>" class="btn  btn-primary btn-sm" >
+                Buat Sertifikat
+              </a>
+              <a href="/sertifikat/read/<%= peserta.id %>" class="btn  btn-default btn-sm">
+                Tampilkan Data
+              </a>
+            <% } %> 
+          <% } else { %>
+            <a href="/sertifikat/print/<%= peserta.id %>" class="btn  btn-success btn-sm">
               Cetak Sertifikat
             </a>
-            <a href="/sertifikat/read/<%= sertifikat.id %>" class="btn  btn-default btn-sm">
-              Tampilkan Data
-            </a>
-          <% } else { %>
-            <a href="/sertifikat/create/<%= sertifikat.id %>" class="btn  btn-primary btn-sm">
-              Buat Sertifikat
-            </a>
-            <a href="/sertifikat/read/<%= sertifikat.id %>" class="btn  btn-default btn-sm disabled">
+            <a href="/sertifikat/read/<%= peserta.id %>" class="btn  btn-default btn-sm">
               Tampilkan Data
             </a>
           <% } %>

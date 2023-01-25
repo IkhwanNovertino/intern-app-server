@@ -15,6 +15,7 @@ const pembimbingRouter = require('./app/supervisor/router');
 const pesertaRouter = require('./app/peserta/router');
 const penempatanRouter = require('./app/penempatan/router');
 const sertifikatRouter = require('./app/sertifikat/router');
+const rekapRouter = require('./app/rekap/router');
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use('/pembimbing', pembimbingRouter);
 app.use('/peserta', pesertaRouter);
 app.use('/penempatan', penempatanRouter);
 app.use('/sertifikat', sertifikatRouter);
+app.use('/rekap', rekapRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

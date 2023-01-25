@@ -14,7 +14,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="/peserta">Peserta</a></li>
+            <li class="breadcrumb-item"><a href="/sertifikat">Sertifikat</a></li>
             <li class="breadcrumb-item active">Menampilkan data </li>
           </ol>
         </div>
@@ -36,39 +36,46 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="/peserta/edit/<%= sertifikat.id %>?_method=PUT" method="post">
                 <div class="card-body">
-                  <div class="form-group">
-                    <label for="name">Nomor Sertifikat :</label>
-                    <input type="text" name="name" class=" form-control" id="name"
-                      placeholder="Masukkan nama peserta..." value="<%= sertifikat.noSertifikat %>" disabled="disabled" required>
-                  </div>
-                  <hr>
+                  <% if (peserta.sertifikat.noSertifikat === '13/000/SRT/INFO/KOMINFO') { %>
+                    <div class="form-group" hidden>
+                      <label for="name">Nomor Sertifikat :</label>
+                      <input type="text" name="name" class=" form-control" id="name"
+                        placeholder="Masukkan nama peserta..." disabled="disabled" >
+                    </div>
+                  <% } else { %>
+                      <div class="form-group hidden">
+                        <label for="name">Nomor Sertifikat :</label>
+                        <input type="text" name="name" class=" form-control" id="name"
+                          value="<%= peserta.sertifikat.noSertifikat %>" disabled="disabled">
+                      </div>
+                      <hr>
+                  <% } %>
+                  
                   <div class="form-group">
                     <label for="name">Nama Peserta :</label>
                     <input type="text" name="name" class=" form-control" id="name"
-                      placeholder="Masukkan nama peserta..." value="<%= sertifikat.peserta.name %>" disabled="disabled" required>
+                      value="<%= peserta.name %>" disabled="disabled">
                   </div>
                   <div class="form-group">
                     <label for="nim">No. Induk Siswa/Mahasiswa :</label>
                     <input type="text" name="nim" class=" form-control" id="nim"
-                      placeholder="Masukkan no. Induk Siswa/Mahasiswa..." value="<%= sertifikat.peserta.nim %>" disabled="disabled" required>
-                    <!-- <div id="nimHelp" class="form-text text-secondary">contoh: 20001101 202103 1 024.</div> -->
+                      value="<%= peserta.nim %>" disabled="disabled">
                   </div>
                   <div class="form-group">
                     <label for="instansi">Instansi/ Asal Sekolah :</label>
                     <input type="text" name="instansi" class=" form-control" id="instansi"
-                      placeholder="Masukkan instansi..." value="<%= sertifikat.peserta.instansi %>" disabled="disabled" required>
+                      value="<%= peserta.instansi %>" disabled="disabled">
                   </div>
                   <div class="form-group">
                     <label for="jurusan">Jurusan :</label>
                     <input type="text" name="jurusan" class=" form-control" id="jurusan"
-                      placeholder="Masukkan jurusan..." value="<%= sertifikat.peserta.jurusan %>" disabled="disabled" required>
+                      value="<%= peserta.jurusan %>" disabled="disabled" >
                   </div>
                   <div class="form-group">
                     <label for="email">E-mail :</label>
                     <input type="email" name="email" class=" form-control" id="email"
-                      placeholder="Masukkan email..." value="<%= sertifikat.peserta.email %>" disabled="disabled" required>
+                      value="<%= peserta.email %>" disabled="disabled">
                   </div>
                   <div class="row">
                     <div class="col">
@@ -76,7 +83,7 @@
                         <label>Tanggal Mulai :</label>
                           <div class="input-group date" id="reservationdate" data-target-input="nearest">
                               <input type="text" name="tglmulai" id="tglmulai" class="form-control datetimepicker-input" 
-                                data-target="#reservationdate" value="<%= tglFormatForm(sertifikat.peserta.tglmulai) %>" disabled="disabled" required/>
+                                data-target="#reservationdate" value="<%= tglFormatForm(peserta.tglmulai) %>" disabled="disabled"/>
                               <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                               </div>
@@ -88,7 +95,7 @@
                         <label>Tanggal Selesai :</label>
                           <div class="input-group date" id="reservationdate1" data-target-input="nearest">
                               <input type="text" name="tglselesai" id="tglselesai" class="form-control datetimepicker-input" 
-                                data-target="#reservationdate" value="<%= tglFormatForm(sertifikat.peserta.tglselesai) %>" disabled="disabled" required/>
+                                data-target="#reservationdate" value="<%= tglFormatForm(peserta.tglselesai) %>" disabled="disabled"/>
                               <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                               </div>
@@ -98,67 +105,20 @@
                   </div>
                   <hr>
                   <div class="form-group">
-                    <label for="pembimbing">Pembina :</label>
-                    <select class="form-control select2" style="width: 100%;" name="pembina" id="pembina" disabled="disabled">
-                      <option selected="selected">Pilih Pembina</option>
-                      <% pembina.forEach(e => { %>
-                        <option value="<%= e._id %>"
-                          <% if (sertifikat.pembina._id.toString() === e._id.toString()) { %>
-                            selected
-                            <% } %>
-                            >
-                            <%= e.name %>
-                          </option>
-                        <% }) %>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="pembimbing">Pembimbing :</label>
-                    <select class="form-control select2" style="width: 100%;" name="pembimbing" id="pembimbing" disabled="disabled">
-                      <option selected="selected">Pilih Pembimbing</option>
-                      <% pembimbing.forEach(e => { %>
-                        <option value="<%= e._id %>"
-                          <% if (sertifikat.peserta.pembimbing._id.toString() === e._id.toString()) { %>
-                            selected
-                          <% } %>
-                        >
-                          <%= e.name %>
-                        </option>
-                        <% }) %>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="biro">Bidang Kegiatan :</label>
-                    <select class="form-control select2" style="width: 100%;" name="biro" id="biro" disabled="disabled">
-                      <option selected="selected">Pilih Bidang Kegiatan</option>
-                      <% biro.forEach(e => { %>
-                        <option value="<%= e._id %>"
-                          <% if (sertifikat.peserta.biro._id.toString() === e._id.toString()) { %>
-                            selected
-                          <% } %>
-                        >
-                          <%= e.name %>
-                        </option>
-                        <% }) %>
-                    </select>
+                    <label for="pembina">Pembina :</label>
+                    <% if (peserta.sertifikat.pembina.id !== undefined) { %>
+                      <input type="email" name="pembina" class=" form-control" id="pembina"
+                          value="<%= peserta.sertifikat.pembina.name %>" disabled="disabled">
+                    <% } else { %>
+                      <input type="email" name="pembina" class=" form-control" id="pembina"
+                            placeholder="pilih pembina" disabled="disabled">
+                    <% } %> 
                   </div>
                   <hr>
                   <div class="form-group">
                     <label for="nilai">Nilai Magang :</label>
-                    <select class="form-control select2" style="width: 100%;" name="nilai" id="nilai" disabled="disabled">
-                      <option selected="selected">Pilih Nilai</option>
-                      <option value="<%= sertifikat.nilai %>" selected>
-                        <% if (sertifikat.nilai === 'a') { %>
-                          Sangat Baik
-                        <% } else if (sertifikat.nilai === 'b') { %>
-                          Baik
-                        <% } else if (sertifikat.nilai === 'c') { %>
-                        Kurang Baik
-                        <% } else { %>
-                          Tidak Baik
-                        <% } %>
-                      </option>
-                    </select>
+                    <input type="text" name="instansi" class=" form-control" id="instansi"
+                      placeholder="Baik"disabled="disabled" required>
                   </div>
                   <div class="form-group">
                     <!-- <label>Tanggal Terbit Sertifikat :</label> -->
@@ -169,16 +129,14 @@
                               id="tglterbit" 
                               class="form-control datetimepicker-input" 
                               data-target="#reservationdate" 
-                              value="<%= tglFormatForm(sertifikat.tglTerbit) %>" 
+                              value="<%= tglFormatForm(peserta.sertifikat.tglTerbit) %>" 
                               disabled="disabled" hidden required/>
                       </div>
                   </div>
                 </div>
                 <div class="card-footer">
                   <a href="/sertifikat" class="btn btn-default">Kembali</a>
-                  <!-- <a href="/sertifikat/edit/<%#= sertifikat.id %>" class="btn btn-primary" >Ubah</a> -->
                 </div>
-              </form>
             </div>
             <!-- /.card -->
           </div>

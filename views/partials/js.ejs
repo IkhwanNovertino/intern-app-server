@@ -58,7 +58,8 @@
   $(function () {
     // Page dataTables
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
@@ -75,6 +76,8 @@
     $('.select2bs4').select2({
       theme: 'bootstrap4'
     });
+    //Date range picker
+    $('#reservation').daterangepicker()
     //Datemask2 mm/dd/yyyy
     $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
     //Date picker

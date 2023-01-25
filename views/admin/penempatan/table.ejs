@@ -9,20 +9,20 @@
     <th>Selesai</th>
     <th>Bidang Kegiatan</th>
     <th>Supervisor</th>
-    <th></th>
+    <th>Aksi</th>
   </tr>
   </thead>
   <tbody>
     <% penempatan.forEach((e, i) => {i++ %>
       <tr class="col">
         <td><%= i %></td>
-        <td class="text-bold"><%= e.peserta.name %></td>
+        <td class="text-bold"><%= e.peserta.nama %></td>
         <td><%= e.peserta.nim %></td>
         <td><%= e.peserta.instansi %></td>
         <td><%= tglFormat(e.tglmulai) %></td>
         <td><%= tglFormat(e.tglselesai) %></td>
-        <td><%= e.biro.name %></td>
-        <td><%= e.supervisor.name %></td>
+        <td><%= e.biro.nama %></td>
+        <td><%= e.supervisor.nama %></td>
         <td>
           <form action="/penempatan/delete/<%= e.id %>?_method=DELETE" method="post">
             <a href="/penempatan/detail/<%= e.id %>" class="btn btn-default btn-sm">

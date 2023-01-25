@@ -2,7 +2,6 @@ const Penempatan = require('./model');
 const Peserta = require("../peserta/model");
 const Supervisor = require("../supervisor/model");
 const Biro = require("../biro/model");
-const User = require('../user/model');
 const { tglFormat, tglFormatForm } = require("../../utils/utils");
 
 const path = 'admin/penempatan';
@@ -16,14 +15,9 @@ module.exports = {
 
       const penempatan = await Penempatan.find()
         .sort({ createdAt: -1 })
-        .populate('peserta')
-        .populate('supervisor')
-        .populate('biro')
-
-      console.log('penempatan>>>', penempatan);
 
       res.render(`${path}/view_penempatan`, {
-        title: 'Halaman Penempatan',
+        title: 'Daftar Data Penempatan Peserta Magang',
         penempatan,
         alert,
         tglFormat,
@@ -64,29 +58,27 @@ module.exports = {
       const datumBiro = await Biro.findOne({ _id: biro });
 
       const penempatan = await Penempatan({
-        peserta,
-        supervisor,
-        biro,
         tglmulai,
         tglselesai,
-        historyPenempatan: {
-          peserta: {
-            nama: datumPeserta.name,
-            nim: datumPeserta.nim,
-            instansi: datumPeserta.instansi,
-            jurusan: datumPeserta.jurusan,
-            tglmulai_magang: datumPeserta.tglmulai,
-            tglselesai_magang: datumPeserta.tglselesai,
-          },
-          supervisor: {
-            nama: datumSupervisor.name,
-            nip: datumSupervisor.nip,
-            jabatan: datumSupervisor.jabatan,
-          },
-          biro: {
-            nama: datumBiro.name,
-          }
+        peserta: {
+          id: peserta,
+          nama: datumPeserta.name,
+          nim: datumPeserta.nim,
+          instansi: datumPeserta.instansi,
+          jurusan: datumPeserta.jurusan,
+          tglmulai_magang: datumPeserta.tglmulai,
+          tglselesai_magang: datumPeserta.tglselesai,
         },
+        supervisor: {
+          id: supervisor,
+          nama: datumSupervisor.name,
+          nip: datumSupervisor.nip,
+          jabatan: datumSupervisor.jabatan,
+        },
+        biro: {
+          id: biro,
+          nama: datumBiro.name,
+        }
       })
       await penempatan.save();
 
@@ -116,28 +108,6 @@ module.exports = {
       res.redirect('/pembimbing')
     }
   },
-  // actionEdit: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const { name, nip, jabatan } = req.body;
-
-  //     await Supervisor.findOneAndUpdate(
-  //       { _id: id },
-  //       {
-  //         name: name.trim().toUpperCase(),
-  //         nip: nip.replaceAll(' ', ''),
-  //         jabatan: jabatan.trim().toUpperCase()
-  //       })
-
-  //     req.flash('alertMessage', 'Berhasil Mengubah Data Pembimbing');
-  //     req.flash('alertStatus', 'success');
-  //     res.redirect('/pembimbing');
-  //   } catch (error) {
-  //     req.flash('alertMessage', `${error.message}`);
-  //     req.flash('alertStatus', 'danger');
-  //     res.redirect('/pembimbing')
-  //   }
-  // },
   actionDelete: async (req, res) => {
     try {
       const { id } = req.params;

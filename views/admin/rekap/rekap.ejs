@@ -1,0 +1,81 @@
+<div class="wrapper">
+  <!-- Main content -->
+  <section class="rekapitulasi">
+    <div class="row rekapitulasi-title ">
+      <div class="rekapitulasi-title mx-auto">
+        <h4 class="text-center font-weight-bold my-2">
+          REKAPITULASI DATA PESERTA MAGANG <br>DI DINAS KOMUNIKASI DAN INFORMATIKA <br> KOTA BANJARBARU
+        </h4>
+        <p class="d-flex justify-content-center font-weight-bold">Periode : <%= tglFormatSertif(tglAwal)%> s.d. <%= tglFormatSertif(tglAkhir) %></p>
+      </div>
+    </div>
+    <br>
+    <br>
+
+    <!-- data peserta row -->
+    <div class="row d-flex justify-content-center">
+      <div class="col-10 table-responsive">
+        <table class="table table-bordered">
+          <caption>*data peserta magang</caption>
+          <thead>
+          <tr class="text-center">
+            <th></th>
+            <th>Jumlah Peserta Magang</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Aktif</td>
+            <td class="d-flex justify-content-center"><%= data.pesertaAktif %></td>
+          </tr>
+          <tr>
+            <td>Selesai</td>
+            <td class="d-flex justify-content-center"><%= data.pesertaSelesai %></td>
+          </tr>
+          <tr>
+            <td class="text-bold d-flex justify-content-end">TOTAL</td>
+            <td class="text-center"><%= data.pesertaTotal %></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <!-- data penempatan row -->
+    <div class="row d-flex justify-content-center">
+      <div class="col-10 table-responsive">
+        <table class="table table-bordered">
+          <caption>*data penempatan peserta magang</caption>
+          <thead class="text-center">
+          <tr >
+            <th scope="col" rowspan="3">Bidang Kegiatan</th>
+          </tr>
+          <tr>
+            <th scope="row" colspan="2">Jumlah Peserta Magang</th>
+          </tr>
+          <tr>
+            <th scope="col">Aktif</th>
+            <th scope="col">Selesai</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <% data.penempatan.forEach(el => { %>
+              <tr scope="row">
+                <td>BIDANG <%= el.nama %> </td>
+                <td><%= el.countAktif ?? 0 %></td>
+                <td><%= el.countSelesai ?? 0 %></td>
+              </tr>
+            <% }) %>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>

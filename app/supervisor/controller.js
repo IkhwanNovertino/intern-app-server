@@ -13,7 +13,7 @@ module.exports = {
       const supervisor = await Supervisor.find();
 
       res.render(`${path}/view_pembimbing`, {
-        title: 'Halaman Pembimbing',
+        title: 'Daftar Data Supervisor (pembimbing) Kegiatan Magang',
         supervisor,
         alert,
         name: req.session.user.name,
@@ -49,13 +49,13 @@ module.exports = {
       })
       await supervisor.save();
 
-      let userSupervisor = await User({
-        name: name.trim(),
-        username: nip.replaceAll(' ', ''),
-        password: nip.replaceAll(' ', ''),
-        role: 'pembimbing',
-      })
-      await userSupervisor.save()
+      // let userSupervisor = await User({
+      //   name: name.trim(),
+      //   username: nip.replaceAll(' ', ''),
+      //   password: nip.replaceAll(' ', ''),
+      //   role: 'pembimbing',
+      // })
+      // await userSupervisor.save()
 
       req.flash('alertMessage', 'Berhasil Menambah Data Pembimbing');
       req.flash('alertStatus', 'success');

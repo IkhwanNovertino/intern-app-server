@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sertifikat | <%= sertifikat.peserta.name %></title>
+  <title>Sertifikat | <%= peserta.name %></title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -90,7 +90,7 @@
       <div class="sertificate-number col-12 text-center">
         <p>
           <span class="sertificate-number-title">SERTIFIKAT</span> <br>
-          Nomor : <%= sertifikat.noSertifikat %>
+          Nomor : <%= peserta.sertifikat.noSertifikat %>
         </p>
       </div>
     </div>
@@ -101,7 +101,7 @@
       <div class="sertificate-name col-12 text-center">
         <p>
           DIBERIKAN KEPADA<br>
-          <span id="name"><b><%= sertifikat.peserta.name %></b></span>
+          <span id="name"><b><%= peserta.name %></b></span>
         </p>
       </div>
     </div>
@@ -111,14 +111,14 @@
     <div class="row">
       <div class="sertificate-paragraph col-12 text-center">
         <p>
-          Telah mengikuti Praktik Kerja Lapangan (PKL) selama <%= duration(sertifikat.peserta.tglmulai, sertifikat.peserta.tglselesai) %> <br>
-          Dari tanggal <%= tglFormatSertif(sertifikat.peserta.tglmulai) %> sampai dengan <%= tglFormatSertif(sertifikat.peserta.tglselesai) %> <br>
+          Telah mengikuti Praktik Kerja Lapangan (PKL) selama <%= duration(peserta.tglmulai, peserta.tglselesai) %> <br>
+          Dari tanggal <%= tglFormatSertif(peserta.tglmulai) %> sampai dengan <%= tglFormatSertif(peserta.tglselesai) %> <br>
           Di <strong>Dinas Komunikasi dan Informatika Kota Banjarbaru</strong> <br>
-          <% if (sertifikat.nilai === 'a') { %>
+          <% if (peserta.sertifikat.nilai === 'a') { %>
             dengan hasil <strong>Sangat Baik</strong>
-          <% } else if (sertifikat.nilai === 'b') { %>
+          <% } else if (peserta.sertifikat.nilai === 'b') { %>
             dengan hasil <strong>Baik</strong>
-          <% } else if (sertifikat.nilai === 'c') { %>
+          <% } else if (peserta.sertifikat.nilai === 'c') { %>
             dengan hasil <strong>Kurang Baik</strong>
           <% } else { %>
             dengan hasil <strong>Tidak Baik</strong>
@@ -132,13 +132,13 @@
     <div class="row">
       <div class="sertificate-signature col-12 text-center">
         <p class="signature-date">
-          <span>Banjarbaru, <%= tglFormatSertif(sertifikat.tglTerbit) || tglFormatSertif(Date.now()) %></span><br>
-          <%= capitalize(sertifikat.pembina.jabatan) %> Komunikasi dan Informatika <br> Kota Banjarbaru
+          <span>Banjarbaru, <%= tglFormatSertif(peserta.sertifikat.tglTerbit) || tglFormatSertif(Date.now()) %></span><br>
+          <%= capitalize(peserta.sertifikat.pembina.jabatan) %> Komunikasi dan Informatika <br> Kota Banjarbaru
         </p>
         <p class="signature-person">
-          <span><%= sertifikat.pembina.name %></span> <br>
+          <span><%= peserta.sertifikat.pembina.name %></span> <br>
           Pembina Tk.I <br>
-          NIP. <%= nipFormat(sertifikat.pembina.nip) %>
+          NIP. <%= nipFormat(peserta.sertifikat.pembina.nip) %>
         </p>
       </div>
         

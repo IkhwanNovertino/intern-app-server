@@ -48,6 +48,44 @@ let pesertaSchema = mongoose.Schema({
         default: "+62"
       }
     }
+  },
+  sertifikat: {
+    noSertifikat: {
+      type: String,
+      default: '13/000/SRT/INFO/KOMINFO'
+    },
+    nilai: {
+      type: String,
+      enum: ['a', 'b', 'c', 'd'],
+      default: 'b'
+    },
+    tglTerbit: {
+      type: Date,
+      default: Date.now()
+    },
+    pembina: {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Pembina'
+      },
+      name: {
+        type: String,
+        require: [true, 'nama harus diisi']
+      },
+      nip: {
+        type: String,
+        require: [true, 'no. induk pegawai harus diisi']
+      },
+      jabatan: {
+        type: String,
+        require: [true, 'jabatan harus diisi']
+      }
+    },
+    status: {
+      type: String,
+      enum: ['Y', 'N'],
+      default: 'N'
+    }
   }
 }, { timestamps: true })
 

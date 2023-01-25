@@ -1,6 +1,5 @@
 const moment = require('moment');
 const Biro = require('../biro/model');
-// const Pembimbing = require('../supervisor/model');
 const Sertifikat = require('../sertifikat/model');
 const Peserta = require('./model');
 const { tglFormat, tglFormatForm } = require('../../utils/utils');
@@ -19,7 +18,7 @@ module.exports = {
         .populate('biro');
 
       res.render(`${path}/view_peserta`, {
-        title: 'Halaman Peserta Magang',
+        title: 'Daftar Data Peserta Magang',
         peserta,
         tglFormat,
         alert,
@@ -34,13 +33,9 @@ module.exports = {
   },
   viewCreate: async (req, res) => {
     try {
-      // const biro = await Biro.find();
-      // const pembimbing = await Pembimbing.find();
 
       res.render(`${path}/create`, {
         title: 'Halaman Tambah Peserta Magang',
-        // biro,
-        // pembimbing,
         name: req.session.user.name,
         role: req.session.user.role
       })
@@ -52,8 +47,6 @@ module.exports = {
   },
   actionCreate: async (req, res) => {
     try {
-      // res.send(req.body);
-      console.log('result: ', req.body);
       const { name, nim, instansi, jurusan, email, tglmulai, tglselesai, pembimbing, pembimbingKontak } = req.body;
       let peserta = await Peserta({
         name: name.trim().toUpperCase(),
@@ -87,13 +80,9 @@ module.exports = {
     try {
       const { id } = req.params;
       const peserta = await Peserta.findById(id)
-      // const biro = await Biro.find();
-      // const pembimbing = await Pembimbing.find();
 
       res.render(`${path}/edit`, {
         title: 'Halaman Ubah Peserta Magang',
-        // pembimbing,
-        // biro,
         peserta,
         tglFormatForm,
         name: req.session.user.name,

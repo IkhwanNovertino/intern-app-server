@@ -10,7 +10,7 @@ module.exports = {
 
       const pembina = await Pembina.find();
       res.render(`${path}/view_pembina`, {
-        title: 'Halaman Pembina',
+        title: 'Data Pembina Magang',
         pembina,
         alert,
         name: req.session.user.name,
@@ -37,12 +37,11 @@ module.exports = {
   },
   actionCreate: async (req, res) => {
     try {
-      const { name, nip, jabatan, pangkat } = req.body;
+      const { name, nip, jabatan } = req.body;
 
       let pembina = await Pembina({
         name: name.trim().toUpperCase(),
         nip: nip.replaceAll(' ', ''),
-        pangkat: pangkat.trim().toUpperCase(),
         jabatan: jabatan.trim().toUpperCase()
       })
       await pembina.save();
@@ -82,7 +81,6 @@ module.exports = {
         {
           name: name.trim().toUpperCase(),
           nip: nip.replaceAll(' ', ''),
-          pangkat: pangkat.trim().toUpperCase(),
           jabatan: jabatan.trim().toUpperCase()
         })
 

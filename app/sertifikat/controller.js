@@ -1,8 +1,7 @@
 const Peserta = require('../peserta/model')
-const Biro = require('../biro/model');
 const Pembina = require('../pembina/model');
-const Pembimbing = require('../supervisor/model');
 const Sertifikat = require('./model')
+const Penempatan = require('../penempatan/model')
 const { noSertif, tglFormatForm, tglFormatSertif, duration, nipFormat, capitalize } = require('../../utils/utils');
 const moment = require('moment');
 
@@ -16,19 +15,13 @@ module.exports = {
       const alertStatus = req.flash('alertStatus');
       const alert = { message: alertMessage, status: alertStatus };
 
-      const sertifikat = await Sertifikat
+      const peserta = await Peserta
         .find()
         .sort({ createdAt: -1 })
-        .populate({
-          path: 'peserta',
-          populate: { path: 'biro' }
-        })
-
-      console.log(sertifikat);
       res.render(`${path}/view_sertifikat`, {
-        title: 'Halaman Sertifikat',
+        title: 'Daftar Data Sertifikat Peserta Magang',
         alert,
-        sertifikat,
+        peserta,
         name: req.session.user.name,
         role: req.session.user.role
       })
@@ -42,20 +35,23 @@ module.exports = {
     try {
       const { id } = req.params;
 
-      const sertifikat = await Sertifikat
-        .findById(id)
-        .populate({
-          path: 'peserta',
-          populate: { path: 'biro pembimbing' }
-        })
-
+      const peserta = await Peserta.findById(id)
       const pembina = await Pembina.find();
+      const penempatan = await Penempatan.find({
+        "peserta.id": id
+      })
+
+      // console.log('>>> arrpenempatan: ', penempatanPeserta);
+      console.log('>>> penempatan: ', penempatan);
 
       res.render(`${path}/create`, {
         title: 'Halaman Buat Sertifikat',
         tglFormatForm,
         noSertif,
-        sertifikat,
+        nipFormat,
+        tglFormatSertif,
+        penempatan,
+        peserta,
         pembina,
         name: req.session.user.name,
         role: req.session.user.role
@@ -67,7 +63,6 @@ module.exports = {
       res.redirect('/sertifikat')
     }
   },
-
   actionCreate: async (req, res) => {
     try {
       const { id } = req.params;
@@ -75,14 +70,25 @@ module.exports = {
 
       const { nilai, tglTerbit, noSertifikat, pembina } = req.body;
 
-      await Sertifikat.findOneAndUpdate(
+      console.log(req.body, req.query, Date.now());
+
+      const datumPembina = await Pembina.findById(pembina)
+
+      await Peserta.findOneAndUpdate(
         { _id: id },
         {
-          nilai,
-          tglTerbit,
-          pembina,
-          noSertifikat,
-          status
+          sertifikat: {
+            noSertifikat,
+            nilai,
+            tglTerbit: Date.now(),
+            pembina: {
+              id: pembina,
+              name: datumPembina.name,
+              nip: datumPembina.nip,
+              jabatan: datumPembina.jabatan
+            },
+            status,
+          }
         }
       )
 
@@ -95,20 +101,17 @@ module.exports = {
       res.redirect('/sertifikat')
     }
   },
-
   viewPrint: async (req, res) => {
     try {
       const { id } = req.params;
-      const sertifikat = await Sertifikat.findById(id)
-        .populate('peserta pembina')
-
+      const peserta = await Peserta.findById(id)
       res.render(`${path}/sertifikat`, {
         title: 'Halaman Cetak Sertifikat',
         tglFormatSertif,
         duration,
         nipFormat,
         capitalize,
-        sertifikat,
+        peserta,
         name: req.session.user.name,
         role: req.session.user.role
       })
@@ -121,14 +124,13 @@ module.exports = {
   actionPrint: async (req, res) => {
     try {
       const { id } = req.params;
-      const sertifikat = await Sertifikat.findById(id)
-        .populate('peserta pembina')
+      const peserta = await Peserta.findById(id);
       res.render(`${path}/sertifikat-print`, {
         tglFormatSertif,
         duration,
         nipFormat,
         capitalize,
-        sertifikat
+        peserta
       })
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -140,25 +142,15 @@ module.exports = {
     try {
       const { id } = req.params;
 
-      const sertifikat = await Sertifikat
-        .findById(id)
-        .populate({
-          path: 'peserta',
-          populate: { path: 'biro pembimbing' }
-        })
-        .populate('pembina')
+      const peserta = await Peserta.findById(id)
 
       const pembina = await Pembina.find()
-      const pembimbing = await Pembimbing.find()
-      const biro = await Biro.find()
 
       res.render(`${path}/read`, {
         title: 'Halaman Data Sertifikat',
         tglFormatForm,
-        sertifikat,
+        peserta,
         pembina,
-        pembimbing,
-        biro,
         name: req.session.user.name,
         role: req.session.user.role
       })
