@@ -1,12 +1,9 @@
 const Peserta = require('../peserta/model')
 const Pembina = require('../pembina/model');
-const Sertifikat = require('./model')
 const Penempatan = require('../penempatan/model')
-const { noSertif, tglFormatForm, tglFormatSertif, duration, nipFormat, capitalize } = require('../../utils/utils');
-const moment = require('moment');
+const { noSertif, tglFormat, tglFormatForm, tglFormatSertif, duration, nipFormat, capitalize } = require('../../utils/utils');
 
 const path = 'admin/sertifikat';
-
 
 module.exports = {
   index: async (req, res) => {
@@ -22,6 +19,7 @@ module.exports = {
         title: 'Daftar Data Sertifikat Peserta Magang',
         alert,
         peserta,
+        tglFormat,
         name: req.session.user.name,
         role: req.session.user.role
       })
@@ -40,9 +38,6 @@ module.exports = {
       const penempatan = await Penempatan.find({
         "peserta.id": id
       })
-
-      // console.log('>>> arrpenempatan: ', penempatanPeserta);
-      console.log('>>> penempatan: ', penempatan);
 
       res.render(`${path}/create`, {
         title: 'Halaman Buat Sertifikat',
@@ -67,10 +62,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const { status } = req.query
-
-      const { nilai, tglTerbit, noSertifikat, pembina } = req.body;
-
-      console.log(req.body, req.query, Date.now());
+      const { nilai, noSertifikat, pembina } = req.body;
 
       const datumPembina = await Pembina.findById(pembina)
 
@@ -105,6 +97,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const peserta = await Peserta.findById(id)
+
       res.render(`${path}/sertifikat`, {
         title: 'Halaman Cetak Sertifikat',
         tglFormatSertif,
@@ -143,14 +136,17 @@ module.exports = {
       const { id } = req.params;
 
       const peserta = await Peserta.findById(id)
-
-      const pembina = await Pembina.find()
+      const penempatan = await Penempatan.find({
+        "peserta.id": id
+      })
 
       res.render(`${path}/read`, {
         title: 'Halaman Data Sertifikat',
         tglFormatForm,
+        nipFormat,
+        tglFormatSertif,
         peserta,
-        pembina,
+        penempatan,
         name: req.session.user.name,
         role: req.session.user.role
       })

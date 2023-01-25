@@ -5,6 +5,8 @@
     <th>Nama Lengkap</th>
     <th>NIS/NIM</th>
     <th>Asal Sekolah/Kampus</th>
+    <th>Mulai Magang</th>
+    <th>Selesai Magang</th>
     <th>Aksi</th>
   </tr>
   </thead>
@@ -15,6 +17,8 @@
         <td class="text-bold"><%= peserta?.name ?? '-' %></td>
         <td><%= peserta?.nim ?? '-' %></td>
         <td><%= peserta?.instansi ?? '-' %></td>
+        <td><%= tglFormat(peserta?.tglmulai) ?? '-' %></td>
+        <td><%= tglFormat(peserta?.tglselesai) ?? '-' %></td>
         <td>
           <% if (peserta.sertifikat.status === 'N') { %>
             <% if (Date.now() <= peserta.tglselesai ) { %>

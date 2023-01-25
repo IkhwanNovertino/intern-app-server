@@ -59,7 +59,6 @@
                     <label for="nim">No. Induk Siswa/Mahasiswa :</label>
                     <input type="text" name="nim" class=" form-control" id="nim"
                       placeholder="Masukkan no. Induk Siswa/Mahasiswa..." value="<%= peserta.nim %>" disabled required>
-                    <!-- <div id="nimHelp" class="form-text text-secondary">contoh: 20001101 202103 1 024.</div> -->
                   </div>
                   <div class="form-group">
                     <label for="instansi">Instansi/ Asal Sekolah :</label>
@@ -138,17 +137,6 @@
                       <option value="d">Tidak Baik</option>
                     </select>
                     <div id="nilaiHelp" class="form-text text-warning">* Berikan penilaian dari kinerja magang peserta</div>
-                  </div>
-
-                  <div class="form-group">
-                    <!-- <label>Tanggal Terbit sertifikat :</label> -->
-                      <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                            <input type="text" name="tglTerbit" id="tglTerbit" class="form-control datetimepicker-input" 
-                              data-target="#reservationdate2" value="<%= tglFormatForm(Date.now()) %>" required/>
-                            <div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                      </div>
                   </div>
                 </div>
 

@@ -105,6 +105,23 @@
                   </div>
                   <hr>
                   <div class="form-group">
+                    <label>Penempatan Bidang Kegiatan :</label>
+                    <div class="row">
+                    <% penempatan.forEach(e => { %>
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                          <div class="card">
+                            <div class="card-body">
+                              <p class="card-text font-italic"><%= tglFormatSertif(e.tglmulai) %>  - <%= tglFormatSertif(e.tglselesai) %></p>
+                              <p class="card-title text-bold mb-1 text-uppercase">Bidang <%= e.biro.nama %></p>
+                              <p class="card-text"><u><%= e.supervisor.nama %></u><br> NIP. <%= nipFormat(e.supervisor.nip) %></p>
+                            </div>
+                          </div>
+                        </div>
+                        <% }) %>
+                      </div>
+                  </div>
+                  <hr>
+                  <div class="form-group">
                     <label for="pembina">Pembina :</label>
                     <% if (peserta.sertifikat.pembina.id !== undefined) { %>
                       <input type="email" name="pembina" class=" form-control" id="pembina"
@@ -118,20 +135,7 @@
                   <div class="form-group">
                     <label for="nilai">Nilai Magang :</label>
                     <input type="text" name="instansi" class=" form-control" id="instansi"
-                      placeholder="Baik"disabled="disabled" required>
-                  </div>
-                  <div class="form-group">
-                    <!-- <label>Tanggal Terbit Sertifikat :</label> -->
-                      <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                            <input 
-                              type="text" 
-                              name="tglterbit" 
-                              id="tglterbit" 
-                              class="form-control datetimepicker-input" 
-                              data-target="#reservationdate" 
-                              value="<%= tglFormatForm(peserta.sertifikat.tglTerbit) %>" 
-                              disabled="disabled" hidden required/>
-                      </div>
+                      placeholder="Baik"disabled="disabled">
                   </div>
                 </div>
                 <div class="card-footer">
