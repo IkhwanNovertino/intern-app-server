@@ -6,6 +6,6 @@ const { isLoginAdmmin } = require('../middleware/auth');
 router.use(isLoginAdmmin)
 router.get('/', index);
 router.get('/create', viewRekap);
-router.get('/actionPrint', actionPrint);
+router.get('/print', actionPrint);
 
 module.exports = router;

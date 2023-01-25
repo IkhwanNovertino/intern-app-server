@@ -8,16 +8,14 @@
   <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2 ml-2">
-          <div class="col-sm-6 col-lg-10">
+          <div class="col-sm-12 col-lg-10">
             <h1 class="m-0 font-weight-bold pt-2">
-              Data Magang Dinas Komunikasi dan Informatika <br>
-              Kota Banjarbaru
+              Data Magang Dinas Komunikasi dan Informatika Kota Banjarbaru
             </h1>
           </div><!-- /.col -->
           <div class="col-sm-6 col-lg-2">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item active">Dashboard</li>
-              <!-- <li class="breadcrumb-item active">Dashboard v1</li> -->
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -30,7 +28,7 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row ml-3 mb-2">
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-sm-12">
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
@@ -44,7 +42,7 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-sm-12">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
@@ -67,30 +65,24 @@
               Daftar Siswa/Mahasiswa Peserta Magang
             </h2>
           </div><!-- /.col -->
-          <div class="col-lg-10 col-sm-6 pt-2 ml-2">
-            <div class="card">
-              <!-- <div class="card-header">
-                <h3 class="card-title">Striped Full Width Table</h3>
-              </div>
-              /.card-header -->
-              <div class="card-body p-0">
-                <table class="table table-striped">
-                  <thead>
+          <div class="col-lg-10 col-sm-12 pt-2 ml-2">
+                <table class="table table-striped table-responsive">
+                  <thead class="thead-dark">
                     <tr>
-                      <th style="width: 1px;"></th>
                       <th>Nama Lengkap</th>
                       <th>Asal Sekolah/Kampus</th>
+                      <th>Jurusan</th>
                       <th>Mulai</th>
                       <th>Selesai</th>
                       <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <% peserta.forEach((peserta, i) => {i++ %>
+                    <% peserta.forEach((peserta, i) => { %>
                       <tr class="col">
-                        <td><%= i %></td>
                         <td class="font-weight-bold text-small"><%= peserta.name %></td>
                         <td><%= peserta.instansi %></td>
+                        <td><%= peserta.jurusan %></td>
                         <td><%= tglFormat(peserta.tglmulai) %></td>
                         <td><%= tglFormat(peserta.tglselesai) %></td>
                         <% if (Date.now() < peserta.tglmulai) { %>
@@ -104,10 +96,6 @@
                     <% }) %>
                   </tbody>
                 </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
           </div>
           
         </div>

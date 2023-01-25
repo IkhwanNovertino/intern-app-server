@@ -9,16 +9,23 @@ const path = 'admin/rekap'
 module.exports = {
   index: async (req, res) => {
     try {
+      const alertMessage = req.flash('alertMessage');
+      const alertStatus = req.flash('alertStatus');
+      const alert = { message: alertMessage, status: alertStatus };
+
       let tanggal
       res.render(`${path}/view_rekap`, {
         title: 'Halaman Rekap',
         tanggal,
         status: false,
+        alert,
         name: req.session.user.name,
         role: req.session.user.role
       })
     } catch (err) {
-      console.log(err);
+      req.flash('alertMessage', `${err.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/rekap')
     }
   },
   viewRekap: async (req, res) => {
@@ -32,8 +39,8 @@ module.exports = {
       const pesertaInRange = await Peserta.find({
         tglmulai: { $lt: tglAkhir }, tglselesai: { $gt: tglAwal }
       })
-      const pesertaSelesai = pesertaInRange.filter(el => Date.now() > el.tglselesai)
       const pesertaAktif = pesertaInRange.filter(el => Date.now() > el.tglmulai && Date.now() < el.tglselesai)
+      const pesertaSelesai = pesertaInRange.filter(el => Date.now() > el.tglselesai)
 
       const penempatanPeserta = await Penempatan.aggregate(
         [
@@ -177,7 +184,6 @@ module.exports = {
       )
 
       let penempatan = [];
-
       penempatanPeserta.forEach(el => {
         let data = {
           id: el._id.biroID,
@@ -203,8 +209,6 @@ module.exports = {
         });
       })
 
-      // console.log('penempatan >>>>', penempatan);
-
       const data = {
         tglAwal,
         tglAkhir,
@@ -218,7 +222,6 @@ module.exports = {
         var LocalStorage = require('node-localstorage').LocalStorage;
         localStorage = new LocalStorage('./scratch');
       }
-
       localStorage.setItem('data-rekap', JSON.stringify(data));
       console.log(localStorage.getItem('data-rekap'));
 
@@ -234,7 +237,8 @@ module.exports = {
         role: req.session.user.role
       })
     } catch (error) {
-      console.log('PESAN ERROR', error);
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect('/rekap');
     }
   },
@@ -242,7 +246,7 @@ module.exports = {
     try {
       const datasFromLocal = localStorage.getItem('data-rekap');
       const datas = JSON.parse(datasFromLocal);
-      console.log('data >>>', datas);
+      
       res.render(`${path}/rekap-print`, {
         tglFormatSertif,
         tglFormatForm,
@@ -251,7 +255,8 @@ module.exports = {
         role: req.session.user.role
       })
     } catch (error) {
-      console.error(error);
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
       res.redirect("/rekap");
     }
   }
