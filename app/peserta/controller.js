@@ -1,6 +1,3 @@
-const moment = require('moment');
-const Biro = require('../biro/model');
-const Sertifikat = require('../sertifikat/model');
 const Peserta = require('./model');
 const { tglFormat, tglFormatForm } = require('../../utils/utils');
 
@@ -48,6 +45,7 @@ module.exports = {
   actionCreate: async (req, res) => {
     try {
       const { name, nim, instansi, jurusan, email, tglmulai, tglselesai, pembimbing, pembimbingKontak } = req.body;
+      
       let peserta = await Peserta({
         name: name.trim().toUpperCase(),
         nim: nim.trim(),
@@ -63,9 +61,8 @@ module.exports = {
           }
         }
       })
-      const pesertaId = peserta._id;
       await peserta.save();
-      await Sertifikat({ peserta: pesertaId }).save();
+
       req.flash('alertMessage', 'Berhasil Menambahkan Data Peserta');
       req.flash('alertStatus', 'success');
       res.redirect('/peserta');
@@ -131,7 +128,6 @@ module.exports = {
     try {
       const { id } = req.params;
       await Peserta.deleteOne({ _id: id });
-      await Sertifikat.deleteOne({ peserta: id });
 
       req.flash('alertMessage', 'Berhasil Menghapus Data Peserta');
       req.flash('alertStatus', 'success');
