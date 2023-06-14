@@ -42,10 +42,14 @@ module.exports = {
       res.redirect('/peserta');
     }
   },
+
   actionCreate: async (req, res) => {
     try {
-      const { name, nim, instansi, jurusan, email, tglmulai, tglselesai, pembimbing, pembimbingKontak } = req.body;
-      
+      const {
+        name, nim, instansi, jurusan, email,
+        tglmulai, tglselesai, pembimbing, pembimbingKontak
+      } = req.body;
+
       let peserta = await Peserta({
         name: name.trim().toUpperCase(),
         nim: nim.trim(),
