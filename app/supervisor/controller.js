@@ -51,8 +51,8 @@ module.exports = {
 
       let userSupervisor = await User({
         name: name.trim(),
-        username: nip.replaceAll(' ', ''),
-        password: nip.replaceAll(' ', ''),
+        username: nip.replace(/ /gi, ''),
+        password: nip.replace(/ /gi, ''),
         role: 'pembimbing',
       })
       await userSupervisor.save()
