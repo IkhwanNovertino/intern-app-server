@@ -2,40 +2,10 @@ const mongoose = require('mongoose');
 
 let penempatanSchema = mongoose.Schema({
   peserta: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Peserta'
-    },
-    nama: {
-      type: String,
-      require: [true, "Ada kendala pada pengambilan data peserta"]
-    },
-    nim: {
-      type: String,
-      require: [true, "Ada kendala pada pengambilan data peserta"]
-    },
-    instansi: {
-      type: String,
-      require: [true, "Ada kendala pada pengambilan data peserta"]
-    },
-    jurusan: {
-      type: String,
-      require: [true, "Ada kendala pada pengambilan data peserta"]
-    },
-    tglmulai_magang: {
-      type: Date,
-      default: Date.now()
-    },
-    tglselesai_magang: {
-      type: Date,
-      default: Date.now()
-    },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Peserta'
   },
   supervisor: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Supervisor'
-    },
     nama: {
       type: String,
       require: [true, "Ada kendala pada pengambilan data supervisor"]
@@ -59,13 +29,11 @@ let penempatanSchema = mongoose.Schema({
       require: [true, "Ada kendala pada pengambilan data bidang kegiatan"]
     },
   },
-  tglmulai: {
-    type: Date,
-    default: Date.now()
+  tglmulai_penempatan: {
+    type: Number,
   },
-  tglselesai: {
-    type: Date,
-    default: Date.now()
+  tglselesai_penempatan: {
+    type: Number,
   },
 }, { timestamps: true })
 

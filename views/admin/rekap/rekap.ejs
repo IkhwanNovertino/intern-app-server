@@ -1,11 +1,26 @@
 <div class="wrapper">
   <!-- Main content -->
   <section class="rekapitulasi">
+    
+    <div class="row kop-surat d-flex align-items-center pt-1 pb-2">
+      <div class="col-2 text-center">
+        <img src="/img/logo.png" width="68" alt="logo pemko">
+      </div>
+      <div class="col-10 text-center">
+        <h6 class="sub-heading">PEMERINTAH KOTA BANJARBARU</h6>
+        <h4 class="heading font-weight-bolder">DINAS KOMUNIKASI DAN INFORMATIKA</h4>
+        <p>Jl. Pangeran Suriansyah Nomor 5 Banjarbaru Kalimantan Selatan</p>
+        <p>Telp./Fax. (0511) 6749126 E-mail : kominfobjb@banjarbarukota.go.id</p>
+      </div>
+      <div class="line-kop-1 col-12"></div>
+      <div class="line-kop col-12"></div>
+    </div>
+
     <div class="row rekapitulasi-title ">
       <div class="rekapitulasi-title mx-auto">
-        <h4 class="text-center font-weight-bold my-2">
+        <h5 class="text-center font-weight-bold my-2">
           REKAPITULASI DATA PESERTA MAGANG <br>DI DINAS KOMUNIKASI DAN INFORMATIKA <br> KOTA BANJARBARU
-        </h4>
+        </h5>
         <p class="d-flex justify-content-center font-weight-bold">Periode : <%= tglFormatSertif(tglAwal)%> s.d. <%= tglFormatSertif(tglAkhir) %></p>
       </div>
     </div>
@@ -14,7 +29,7 @@
 
     <!-- data peserta row -->
     <div class="row d-flex justify-content-center">
-      <div class="col-10 table-responsive">
+      <div class="col-6 table-responsive">
         <table class="table table-bordered">
           <caption>*data peserta magang</caption>
           <thead>
@@ -45,28 +60,21 @@
 
     <!-- data penempatan row -->
     <div class="row d-flex justify-content-center">
-      <div class="col-10 table-responsive">
+      <div class="col-6 table-responsive">
         <table class="table table-bordered">
           <caption>*data penempatan peserta magang</caption>
           <thead class="text-center">
           <tr >
-            <th scope="col" rowspan="3">Bidang Kegiatan</th>
-          </tr>
-          <tr>
-            <th scope="row" colspan="2">Jumlah Peserta Magang</th>
-          </tr>
-          <tr>
-            <th scope="col">Aktif</th>
-            <th scope="col">Selesai</th>
+            <th scope="col">Bidang Kegiatan</th>
+            <th scope="col">Jumlah Peserta Magang</th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <% data.penempatan.forEach(el => { %>
+            <% data.penempatanBiro.forEach(el => { %>
               <tr scope="row">
-                <td>BIDANG <%= el.nama %> </td>
-                <td><%= el.countAktif ?? 0 %></td>
-                <td><%= el.countSelesai ?? 0 %></td>
+                <td>BIDANG <%= el.name %> </td>
+                <td class="text-center"><%= el.data.length ?? 0 %></td>
               </tr>
             <% }) %>
           </tr>
@@ -76,6 +84,15 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
+
+    <!-- data tanda tangan kadis -->
+    <div class="row d-flex justify-content-end align-items-end">
+      <div class="ttd col-6 text-center">
+        <p class="jabatan pb-5"><%= capitalize(data.pembina.jabatan) %> Komunikasi dan Informatika <br>Kota Banjarbaru,</p>
+        <p class="nama-pejabat"><%= data.pembina.name %></p>
+        <p class="nip-pejabat">NIP. <%= nipFormat(data.pembina.nip) %></p>
+      </div>
+    </div>
   </section>
   <!-- /.content -->
 </div>

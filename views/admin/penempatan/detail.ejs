@@ -40,7 +40,7 @@
                   <div class="form-group">
                     <label for="exampleInputBorder">Nama peserta magang :</label>
                     <input type="text" class="form-control form-control-border" 
-                    id="exampleInputBorder" value="<%= penempatan.peserta.nama %> " disabled>
+                    id="exampleInputBorder" value="<%= penempatan.peserta.name %> " disabled>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputBorder">No.Induk peserta magang :</label>
@@ -60,24 +60,16 @@
                   <div class="row">
                     <div class="col">
                       <div class="form-group">
-                        <label>Tanggal mulai magang:</label>
-                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                              <input type="text" name="tglmulai" id="tglmulai" value="<%= tglFormatForm(penempatan.peserta.tglmulai_magang) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
-                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
-                          </div>
+                        <label for="exampleInputBorder">Tanggal mulai magang :</label>
+                        <input type="text" class="form-control form-control-border" 
+                        id="exampleInputBorder" value="<%= tglFormatForm(penempatan.peserta.tglmulai) %>" disabled>
                       </div>
                     </div>
                     <div class="col">
                       <div class="form-group">
-                        <label>Tanggal selesai magang :</label>
-                          <div class="input-group date" id="reservationdate1" data-target-input="nearest">
-                              <input type="text" name="tglselesai" id="tglselesai" value="<%= tglFormatForm(penempatan.peserta.tglselesai_magang) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
-                              <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
-                          </div>
+                        <label for="exampleInputBorder">Tanggal selesai magang :</label>
+                        <input type="text" class="form-control form-control-border" 
+                        id="exampleInputBorder" value="<%= tglFormatForm(penempatan.peserta.tglselesai) %>" disabled>
                       </div>
                     </div>
                   </div>
@@ -107,24 +99,16 @@
                   <div class="row">
                     <div class="col">
                       <div class="form-group">
-                        <label>Tanggal mulai penempatan :</label>
-                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                              <input type="text" name="tglmulai" id="tglmulai" value="<%= tglFormatForm(penempatan.tglmulai) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
-                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
-                          </div>
+                        <label for="exampleInputBorder">Tanggal mulai penempatan magang :</label>
+                        <input type="text" class="form-control form-control-border" 
+                        id="exampleInputBorder" value="<%= tglFormatForm(penempatan.tglmulai_penempatan) %>" disabled>
                       </div>
                     </div>
                     <div class="col">
                       <div class="form-group">
-                        <label>Tanggal selesai penempatan :</label>
-                          <div class="input-group date" id="reservationdate1" data-target-input="nearest">
-                              <input type="text" name="tglselesai" id="tglselesai" value="<%= tglFormatForm(penempatan.tglselesai) %>" class="form-control datetimepicker-input" data-target="#reservationdate" disabled/>
-                              <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
-                          </div>
+                        <label for="exampleInputBorder">Tanggal selesai penempatan magang :</label>
+                        <input type="text" class="form-control form-control-border" 
+                        id="exampleInputBorder" value="<%= tglFormatForm(penempatan.tglselesai_penempatan) %>" disabled>
                       </div>
                     </div>
                   </div>

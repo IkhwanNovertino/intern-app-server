@@ -107,6 +107,11 @@ module.exports = {
   actionDelete: async (req, res) => {
     try {
       const { id } = req.params;
+      let supervisor = await Supervisor.findById(id)
+
+      console.log('data supervisor >>>' + supervisor, supervisor.nip);
+
+      await User.deleteOne({ username: supervisor.nip });
       await Supervisor.deleteOne({ _id: id });
 
       req.flash('alertMessage', 'Berhasil Menghapus Data Pembimbing');

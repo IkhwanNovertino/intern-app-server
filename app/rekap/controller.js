@@ -1,7 +1,9 @@
 const moment = require('moment');
 const Peserta = require('../peserta/model');
 const Penempatan = require('../penempatan/model');
-const { tglFormatForm, tglFormatSertif } = require('../../utils/utils');
+const Pembina = require('../pembina/model');
+const Biro = require('../biro/model')
+const { tglFormatForm, tglFormatSertif, nipFormat, capitalize } = require('../../utils/utils');
 const e = require('connect-flash');
 
 const path = 'admin/rekap'
@@ -35,187 +37,56 @@ module.exports = {
       const toDay = new Date;
       const tglAwal = new Date(tgl[0]);
       const tglAkhir = new Date(tgl[1]);
+      const dateParseStart = Date.parse(tglAwal);
+      const dateParseEnd = Date.parse(tglAkhir);
 
       const pesertaInRange = await Peserta.find({
         tglmulai: { $lt: tglAkhir }, tglselesai: { $gt: tglAwal }
       })
+
+      const pesertaProses = pesertaInRange.filter(el => el.tglmulai > Date.now())
       const pesertaAktif = pesertaInRange.filter(el => Date.now() > el.tglmulai && Date.now() < el.tglselesai)
       const pesertaSelesai = pesertaInRange.filter(el => Date.now() > el.tglselesai)
 
-      const penempatanPeserta = await Penempatan.aggregate(
+      const penempatanBiro = await Biro.aggregate(
         [
           {
-            $group:
-            {
-              _id: { biroID: "$biro.id", biroNama: "$biro.nama" },
-              countNumberOfMember: {
-                $count: {},
-              },
-            },
-          },
-        ]
-      )
-      const penempatanPesertaAktif = await Penempatan.aggregate(
-        [
-          {
-            $match:
-            /**
-             * query: peserta berdasarkan date-range
-             */
-            {
-              $and: [
+            $lookup: {
+              from: "penempatans",
+              localField: "_id",
+              foreignField: "biro.id",
+              pipeline: [
                 {
-                  tglmulai: {
-                    $lt: tglAkhir,
-                  },
-                },
-                {
-                  tglselesai: {
-                    $gt: tglAwal,
+                  $match: {
+                    $expr: {
+                      $and: [
+                        { $lt: ["$tglmulai_penempatan", dateParseEnd] },
+                        { $gt: ["$tglselesai_penempatan", dateParseStart] },
+                      ],
+                    },
                   },
                 },
               ],
-            },
-          },
-          {
-            $match:
-            /**
-             * query: peserta yang masih aktif
-             */
-            {
-              $and: [
-                {
-                  tglmulai: {
-                    $lt: toDay,
-                  },
-                },
-                {
-                  tglselesai: {
-                    $gt: toDay,
-                  },
-                },
-              ],
-            },
-          },
-          {
-            $group:
-            /**
-             * grouping data berdasarkan bidang (biro)
-             */
-            {
-              _id: { biroID: "$biro.id", biroNama: "$biro.nama" },
-              anggota: {
-                $push: {
-                  id: "$_id",
-                  tglmulai: "$tglmulai",
-                  tglselesai: "$tglselesai",
-                  namaPeserta: "$peserta.nama",
-                  tglmulaiMagang:
-                    "$peserta.tglmulai_magang",
-                  tglselesaiMagang:
-                    "$peserta.tglselesai_magang",
-                },
-              },
-              countNumberOfMember: {
-                $count: {},
-              },
-            },
-          },
-        ]
-      )
-      const penempatanPesertaSelesai = await Penempatan.aggregate(
-        [
-          {
-            $match:
-            /**
-             * query: Peserta berdasarkan date-range
-             */
-            {
-              $and: [
-                {
-                  tglmulai: {
-                    $lt: tglAkhir,
-                  },
-                },
-                {
-                  tglselesai: {
-                    $gt: tglAwal,
-                  },
-                },
-              ],
-            },
-          },
-          {
-            $match:
-            /**
-             * query: Peserta yang telah selesai di bidang terkait
-             */
-            {
-              tglselesai: {
-                $lte: toDay,
-              },
-            },
-          },
-          {
-            $group:
-            /**
-             * grouping data berdasarkan bidang (biro)
-             */
-            {
-              _id: { biroID: "$biro.id", biroNama: "$biro.nama" },
-              anggota: {
-                $push: {
-                  id: "$_id",
-                  tglmulai: "$tglmulai",
-                  tglselesai: "$tglselesai",
-                  namaPeserta: "$peserta.nama",
-                  tglmulaiMagang:
-                    "$peserta.tglmulai_magang",
-                  tglselesaiMagang:
-                    "$peserta.tglselesai_magang",
-                },
-              },
-              countNumberOfMember: {
-                $count: {},
-              },
-            },
-          },
-        ]
-      )
-
-      let penempatan = [];
-      penempatanPeserta.forEach(el => {
-        let data = {
-          id: el._id.biroID,
-          nama: el._id.biroNama
-        }
-        penempatan.push(data);
-      });
-
-      penempatan.forEach(data1 => {
-        penempatanPesertaAktif.forEach(data2 => {
-          if (data1.id.toString() === data2._id.biroID.toString()) {
-            data1.countAktif = data2.countNumberOfMember
+              as: "data",
+            }
           }
-        });
+        ]
+      );
 
-      })
+      let pembina = {}
 
-      penempatan.forEach(data1 => {
-        penempatanPesertaSelesai.forEach(data2 => {
-          if (data1.id.toString() === data2._id.biroID.toString()) {
-            data1.countSelesai = data2.countNumberOfMember
-          }
-        });
-      })
+      for await (const el of Pembina.find()) {
+        pembina = el;
+      }
 
       const data = {
         tglAwal,
         tglAkhir,
         pesertaTotal: pesertaInRange.length,
-        pesertaAktif: pesertaAktif.length,
+        pesertaAktif: pesertaAktif.length + pesertaProses.length,
         pesertaSelesai: pesertaSelesai.length,
-        penempatan,
+        penempatanBiro,
+        pembina
       }
 
       if (typeof localStorage === "undefined" || localStorage === null) {
@@ -223,13 +94,14 @@ module.exports = {
         localStorage = new LocalStorage('./scratch');
       }
       localStorage.setItem('data-rekap', JSON.stringify(data));
-      console.log(localStorage.getItem('data-rekap'));
 
       res.render(`${path}/view_rekap`, {
         title: 'Halaman Rekap',
         tanggal,
         tglAwal,
         tglAkhir,
+        capitalize,
+        nipFormat,
         tglFormatSertif,
         data,
         status: true,
@@ -239,6 +111,7 @@ module.exports = {
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
       req.flash('alertStatus', 'danger');
+      console.log(error);
       res.redirect('/rekap');
     }
   },
@@ -246,10 +119,12 @@ module.exports = {
     try {
       const datasFromLocal = localStorage.getItem('data-rekap');
       const datas = JSON.parse(datasFromLocal);
-      
+
       res.render(`${path}/rekap-print`, {
         tglFormatSertif,
         tglFormatForm,
+        capitalize,
+        nipFormat,
         datas,
         name: req.session.user.name,
         role: req.session.user.role

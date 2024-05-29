@@ -80,26 +80,16 @@
                   <div class="row">
                     <div class="col">
                       <div class="form-group">
-                        <label>Tanggal Mulai :</label>
-                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                              <input type="text" name="tglmulai" id="tglmulai" class="form-control datetimepicker-input" 
-                                data-target="#reservationdate" value="<%= tglFormatForm(peserta.tglmulai) %>" disabled="disabled"/>
-                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
-                          </div>
+                        <label for="exampleInputBorder">Tanggal Mulai Magang :</label>
+                        <input type="text" class="form-control form-control-border" 
+                        id="exampleInputBorder" value="<%= tglFormatForm(peserta.tglmulai) %>" disabled>
                       </div>
                     </div>
                     <div class="col">
                       <div class="form-group">
-                        <label>Tanggal Selesai :</label>
-                          <div class="input-group date" id="reservationdate1" data-target-input="nearest">
-                              <input type="text" name="tglselesai" id="tglselesai" class="form-control datetimepicker-input" 
-                                data-target="#reservationdate" value="<%= tglFormatForm(peserta.tglselesai) %>" disabled="disabled"/>
-                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
-                          </div>
+                        <label for="exampleInputBorder">Tanggal Selesai Magang :</label>
+                        <input type="text" class="form-control form-control-border" 
+                        id="exampleInputBorder" value="<%= tglFormatForm(peserta.tglselesai) %>" disabled>
                       </div>
                     </div>
                   </div>
@@ -111,7 +101,7 @@
                         <div class="col-sm-12 col-md-6 col-lg-4">
                           <div class="card">
                             <div class="card-body">
-                              <p class="card-text font-italic"><%= tglFormatSertif(e.tglmulai) %>  - <%= tglFormatSertif(e.tglselesai) %></p>
+                              <p class="card-text font-italic"><%= tglFormatSertif(e.tglmulai_penempatan) %>  - <%= tglFormatSertif(e.tglselesai_penempatan) %></p>
                               <p class="card-title text-bold mb-1 text-uppercase">Bidang <%= e.biro.nama %></p>
                               <p class="card-text"><u><%= e.supervisor.nama %></u><br> NIP. <%= nipFormat(e.supervisor.nip) %></p>
                             </div>

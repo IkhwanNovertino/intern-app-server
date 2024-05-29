@@ -37,16 +37,32 @@
               <!-- /.card-header -->
               <!-- form start -->
               <form action="/penempatan/create" method="post">
+                <input type="hidden" name="dataPeserta" id="dataPeserta" value="<%= pesertaString %>">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="peserta">Nama peserta :</label>
-                    <select class="form-control select2" style="width: 100%;" name="peserta" id="peserta" required>
-                      <option selected="selected">Pilih peserta</option>
+                    <select class="form-control select2" data-placeholder="Pilih peserta" style="width: 100%;" name="peserta" id="peserta" required>
+                      <option></option>
                       <% peserta.forEach(e => { %>
                         <option value="<%= e._id %>"><%= e.name %></option>
                       <% }) %>
                     </select>
                   </div>
+                  
+                  <div class="form-group">
+                    <label>Tanggal Mulai - Selesai Penempatan :</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                        <input type="text" class="form-control float-right"  value="" name="waktuPenempatan" id="reservationFormPenempatan">
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                  
+
                   <div class="form-group">
                     <label for="supervisor">Pembimbing lapangan (Supervisor) :</label>
                     <select class="form-control select2" style="width: 100%;" name="supervisor" id="supervisor" required>
@@ -64,30 +80,6 @@
                         <option value="<%= e._id %>"><%= e.name %></option>
                         <% }) %>
                     </select>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <div class="form-group">
-                        <label>Tanggal Mulai :</label>
-                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                              <input type="text" name="tglmulai" id="tglmulai" class="form-control datetimepicker-input" data-target="#reservationdate" required/>
-                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
-                          </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-group">
-                        <label>Tanggal Selesai :</label>
-                          <div class="input-group date" id="reservationdate1" data-target-input="nearest">
-                              <input type="text" name="tglselesai" id="tglselesai" class="form-control datetimepicker-input" data-target="#reservationdate" required/>
-                              <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                              </div>
-                          </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
 

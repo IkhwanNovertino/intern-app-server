@@ -1,4 +1,5 @@
 const Peserta = require('./model');
+const Penempatan = require('../penempatan/model');
 const { tglFormat, tglFormatForm } = require('../../utils/utils');
 
 const path = 'admin/peserta';
@@ -33,6 +34,7 @@ module.exports = {
 
       res.render(`${path}/create`, {
         title: 'Halaman Tambah Peserta Magang',
+        tglFormatForm,
         name: req.session.user.name,
         role: req.session.user.role
       })
@@ -56,8 +58,8 @@ module.exports = {
         instansi: instansi.trim().toUpperCase(),
         jurusan: jurusan.trim().toUpperCase(),
         email,
-        tglmulai,
-        tglselesai,
+        tglmulai: Date.parse(tglmulai),
+        tglselesai: Date.parse(tglselesai),
         pembimbing: {
           name: pembimbing.trim().toUpperCase(),
           kontak: {
@@ -109,8 +111,8 @@ module.exports = {
           instansi: instansi.trim().toUpperCase(),
           jurusan: jurusan.trim().toUpperCase(),
           email,
-          tglmulai,
-          tglselesai,
+          tglmulai: Date.parse(tglmulai),
+          tglselesai: Date.parse(tglselesai),
           pembimbing: {
             name: pembimbing.trim().toUpperCase(),
             kontak: {
@@ -131,6 +133,8 @@ module.exports = {
   actionDelete: async (req, res) => {
     try {
       const { id } = req.params;
+
+      await Penempatan.deleteMany({ peserta: id })
       await Peserta.deleteOne({ _id: id });
 
       req.flash('alertMessage', 'Berhasil Menghapus Data Peserta');

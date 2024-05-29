@@ -72,26 +72,57 @@
     });
     //Initialize Select2 Elements
     $('.select2').select2();
+
     //Initialize Select2 Elements
     $('.select2bs4').select2({
       theme: 'bootstrap4'
     });
+
+    
+
+    $('.select2#peserta').select2({
+      allowClear: true,
+    }).change((e) => {
+      const dataPeserta = JSON.parse($('input#dataPeserta').val());
+      const datumPeserta = dataPeserta.find(e => e._id === $('.select2#peserta').val());
+
+      let datatglmulai = datumPeserta.tglmulai;
+      // if (!datumPeserta) alert(`VALUE: ${$('.select2#peserta').val()}`);
+      if (datumPeserta.dataAktif[0]) {
+        datatglmulai = datumPeserta.dataAktif[0].tglselesai_penempatan;
+      }
+
+      console.log(datumPeserta);
+      console.log(datatglmulai);
+      $('#reservationFormPenempatan').attr("value", `${datatglmulai}-${datumPeserta.tglselesai}`)
+
+      //Date range picker
+      $('#reservationFormPenempatan').daterangepicker({
+        autoUpdateInput: true,
+        format: 'L',
+        minDate: new Date(datatglmulai),
+        maxDate: new Date(datumPeserta.tglselesai),
+        startDate : new Date(datatglmulai),
+        endDate: new Date(datumPeserta.tglselesai),
+      });
+    });
+
     //Date range picker
     $('#reservation').daterangepicker()
+
     //Datemask2 mm/dd/yyyy
     $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+
     //Date picker
     $('#reservationdate').datetimepicker({
-        format: 'L'
+        format: 'L',
+        minDate: Date.now(),
     });
+    
     $('#reservationdate1').datetimepicker({
-        format: 'L'
+        format: 'L',
+        minDate: Date.now()
     });
-    $('#reservationdate2').datetimepicker({
-        format: 'L'
-    });
-    // Date and time picker
-    $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
   });
 </script>
 </body>

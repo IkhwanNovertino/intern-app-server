@@ -13,7 +13,9 @@ module.exports = {
       const alertStatus = req.flash('alertStatus');
       const alert = { message: alertMessage, status: alertStatus };
 
-      const penempatan = await Penempatan.find()
+      const penempatan = await Penempatan
+        .find()
+        .populate('peserta')
         .sort({ createdAt: -1 })
 
       res.render(`${path}/view_penempatan`, {
@@ -32,15 +34,45 @@ module.exports = {
   },
   viewCreate: async (req, res) => {
     try {
-      const peserta = await Peserta.find().sort({ createdAt: -1 });
+      const toDay = Date.now()
+
+      const peserta = await Peserta.aggregate([
+        {
+          $match: {
+            tglselesai: { $gt: toDay }
+          }
+        },
+        {
+          $lookup: {
+            from: "penempatans",
+            localField: "_id",
+            foreignField: "peserta",
+            pipeline: [
+              { $sort: { createdAt: -1 } },
+              { $addFields: {} }
+            ],
+            as: "dataAktif"
+          }
+        },
+        {
+          $sort: {
+            createdAt: -1
+          }
+        }
+      ]);
+
+      const pesertaString = JSON.stringify(peserta)
+
       const supervisor = await Supervisor.find();
       const biro = await Biro.find();
 
       res.render(`${path}/create`, {
         title: 'Halaman Tambah Penempatan peserta',
         peserta,
+        pesertaString,
         supervisor,
         biro,
+        toDay,
         name: req.session.user.name,
         role: req.session.user.role
       });
@@ -52,26 +84,19 @@ module.exports = {
   },
   actionCreate: async (req, res) => {
     try {
-      const { peserta, supervisor, biro, tglmulai, tglselesai } = req.body;
+      const { peserta, waktuPenempatan, supervisor, biro } = req.body;
+
 
       const datumPeserta = await Peserta.findOne({ _id: peserta });
       const datumSupervisor = await Supervisor.findOne({ _id: supervisor });
       const datumBiro = await Biro.findOne({ _id: biro });
+      const tgl = waktuPenempatan.split(" - ");
 
-      const penempatan = await Penempatan({
-        tglmulai,
-        tglselesai,
-        peserta: {
-          id: peserta,
-          nama: datumPeserta.name,
-          nim: datumPeserta.nim,
-          instansi: datumPeserta.instansi,
-          jurusan: datumPeserta.jurusan,
-          tglmulai_magang: datumPeserta.tglmulai,
-          tglselesai_magang: datumPeserta.tglselesai,
-        },
+      let penempatan = new Penempatan({
+        tglmulai_penempatan: Date.parse(tgl[0]),
+        tglselesai_penempatan: Date.parse(tgl[1]),
+        peserta: peserta,
         supervisor: {
-          id: supervisor,
           nama: datumSupervisor.name,
           nip: datumSupervisor.nip,
           jabatan: datumSupervisor.jabatan,
@@ -81,6 +106,7 @@ module.exports = {
           nama: datumBiro.name,
         }
       })
+
       await penempatan.save();
 
       req.flash('alertMessage', 'Berhasil Menambah Data Penempatan Peserta Magang');
@@ -95,8 +121,10 @@ module.exports = {
   viewDetail: async (req, res) => {
     try {
       const { id } = req.params;
-      const penempatan = await Penempatan.findById(id)
-      
+      const penempatan = await Penempatan.findById(id).populate('peserta')
+
+      console.log(penempatan);
+
       res.render(`${path}/detail`, {
         title: 'Halaman Detail Penempatan Magang Detail',
         tglFormatForm,

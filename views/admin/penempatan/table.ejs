@@ -5,8 +5,8 @@
     <th>Nama Lengkap</th>
     <th>NIS/NIM</th>
     <th>Asal Sekolah/Kampus</th>
-    <th>Mulai</th>
-    <th>Selesai</th>
+    <th>Mulai Penempatan</th>
+    <th>Selesai Penempatan</th>
     <th>Bidang Kegiatan</th>
     <th>Supervisor</th>
     <th>Aksi</th>
@@ -16,11 +16,11 @@
     <% penempatan.forEach((e, i) => {i++ %>
       <tr class="col">
         <td><%= i %></td>
-        <td class="text-bold"><%= e.peserta.nama %></td>
+        <td class="text-bold"><%= e.peserta.name %></td>
         <td><%= e.peserta.nim %></td>
         <td><%= e.peserta.instansi %></td>
-        <td><%= tglFormat(e.tglmulai) %></td>
-        <td><%= tglFormat(e.tglselesai) %></td>
+        <td><%= tglFormat(e.tglmulai_penempatan) %></td>
+        <td><%= tglFormat(e.tglselesai_penempatan) %></td>
         <td><%= e.biro.nama %></td>
         <td><%= e.supervisor.nama %></td>
         <td>

@@ -36,7 +36,7 @@ module.exports = {
       const peserta = await Peserta.findById(id)
       const pembina = await Pembina.find();
       const penempatan = await Penempatan.find({
-        "peserta.id": id
+        "peserta": id
       })
 
       res.render(`${path}/create`, {
@@ -58,7 +58,7 @@ module.exports = {
       res.redirect('/sertifikat')
     }
   },
-  
+
   actionCreate: async (req, res) => {
     try {
       const { id } = req.params;
@@ -139,7 +139,7 @@ module.exports = {
 
       const peserta = await Peserta.findById(id)
       const penempatan = await Penempatan.find({
-        "peserta.id": id
+        "peserta": id
       })
 
       res.render(`${path}/read`, {

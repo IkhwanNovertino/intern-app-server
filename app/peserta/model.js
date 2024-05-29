@@ -27,12 +27,10 @@ let pesertaSchema = mongoose.Schema({
     type: String,
   },
   tglmulai: {
-    type: Date,
-    default: Date.now()
+    type: Number,
   },
   tglselesai: {
-    type: Date,
-    default: Date.now()
+    type: Number,
   },
   tahun: {
     type: String,
@@ -60,8 +58,7 @@ let pesertaSchema = mongoose.Schema({
       default: 'b'
     },
     tglTerbit: {
-      type: Date,
-      default: Date.now()
+      type: Number,
     },
     pembina: {
       id: {
